@@ -3,6 +3,8 @@ class Login {
     private username: string = "#user-name";
     private password: string = "#password";
     private login: string = "#login-button";
+    private errorMessage: string = "[data-test='error']";
+
 
     //--Username Text field--//
     get usernameElement(): Cypress.Chainable<JQuery<HTMLElement>> {
@@ -17,6 +19,11 @@ class Login {
     //--Login Button--//
     get loginElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.login);
+    }
+
+    //--Error message--//
+    get errorMessageElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.errorMessage);
     }
 
     visit(): void {

@@ -1,9 +1,28 @@
 {
-    "acceptedUsername": [
-        "standard_user",
-        "problem_user",
-        "performance_glitch_user"
+    "users": [
+        {
+            "valid": true,
+            "username": "standard_user",
+            "password": "secret_sauce"
+        },
+        {
+            "valid": true,
+            "username": "problem_user",
+            "password": "secret_sauce"
+        },
+        {
+            "valid": true,
+            "username": "performance_glitch_user",
+            "password": "secret_sauce"
+        },
+        {
+            "valid": false,
+            "username": "locked_out_user",
+            "password": "secret_sauce"
+        }
     ],
-    "lockedOutUsername": "locked_out_user",
-    "password": "secret_sauce"
+    "validUserName": "standard_user",
+    "validPassword": "secret_sauce",
+    "invalidUserName": "very_wrong_username",
+    "invalidPassword": "very_wrong_password"
 }
