@@ -1,0 +1,9 @@
+{
+    "acceptedUsername": [
+        "standard_user",
+        "problem_user",
+        "performance_glitch_user"
+    ],
+    "lockedOutUsername": "locked_out_user",
+    "password": "secret_sauce"
+}
