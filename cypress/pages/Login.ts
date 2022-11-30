@@ -4,6 +4,7 @@ class Login {
     private password: string = "#password";
     private login: string = "#login-button";
     private errorMessage: string = "[data-test='error']";
+    private image: string = ".bot_column";
 
 
     //--Username Text field--//
@@ -19,6 +20,11 @@ class Login {
     //--Login Button--//
     get loginElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.login);
+    }
+
+    //--Image--//
+    get imageElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.image);
     }
 
     //--Error message--//

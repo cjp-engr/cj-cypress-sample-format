@@ -7,6 +7,10 @@ describe('Login Page', () => {
         cy.fixture('login').as('login')
     })
 
+    it('Successfully displayed the image - not broken image', () => {
+        LoginPage.imageElement.should('be.visible')
+    });
+
     it('Success Login Scenario', () => {
         cy.get<ValidCredentials>('@login').then((user) => {
             LoginPage.usernameElement.type(user.validUserName);
@@ -31,7 +35,7 @@ describe('Login Page', () => {
 
     });
 
-    it('Success Login Scenario - Handling array of objects', () => {
+    it('Success & Failed Login Scenario - Handling array of objects', () => {
         cy.fixture<{ users: UserList[] }>("login.json")
             .its("users")
             .then((users) => {
@@ -57,5 +61,6 @@ describe('Login Page', () => {
             });
 
     });
+
 });
 
