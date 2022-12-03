@@ -53,7 +53,7 @@ describe('Add to cart and remove products scenario', () => {
 
     });
 
-    it('Successfully clicked all the add to cart button and displayed the expected number of shopping cart badge', () => {
+    it('Successfully clicked all the "Add to cart" button and displayed the expected number of shopping cart badge', () => {
         InventoryPage.allAddToCardElement
             .each(($el, index, list) => {
                 if ($el.text() === 'Add to cart') {
@@ -62,6 +62,25 @@ describe('Add to cart and remove products scenario', () => {
             });
         InventoryPage.shoppingCartBadgeElement.should(($content) => {
             expect($content).to.contain('6');
+        });
+
+    });
+
+    it.only('Successfully clicked all the "Remove" button and displayed the expected number of shopping cart badge', () => {
+        InventoryPage.allAddToCardElement
+            .each(($el, index, list) => {
+                if ($el.text() === 'Add to cart') {
+                    $el.trigger("click");
+                }
+            });
+        InventoryPage.allRemoveElement
+            .each(($el, index, list) => {
+                if ($el.text() === 'Remove') {
+                    $el.trigger("click");
+                }
+            });
+        InventoryPage.shoppingCartBadgeElement.should(($content) => {
+            expect($content).not.to.exist;
         });
 
     });
