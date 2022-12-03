@@ -41,9 +41,6 @@ class Login {
         return cy.get(this.logout);
     }
 
-    visit(): void {
-        cy.visit(`${Cypress.env('sauceLabs')}`);
-    }
 }
 
 export const LoginPage = new Login();

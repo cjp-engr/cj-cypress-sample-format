@@ -9,26 +9,27 @@ class Inventory {
     //---End - Sorting of products---//
 
     //---Start - Sauce Labs Backpack---//
-    private backpackPrice: string = ".inventory_item:nth-child(1) .inventory_item_price";
-    private backpackTitle: string = ".inventory_item:nth-child(1) .inventory_item_name";
-    private backpackDescription: string = ".inventory_item:nth-child(1) .inventory_item_desc";
+    private backpackPriceText: string = ".inventory_item:nth-child(1) .inventory_item_price";
+    private backpackTitleText: string = ".inventory_item:nth-child(1) .inventory_item_name";
+    private backpackDescriptionText: string = ".inventory_item:nth-child(1) .inventory_item_desc";
     private backpackImage: string = "#item_4_img_link > img[src='/static/media/sauce-backpack-1200x1500.34e7aa42.jpg']";
-    private backpackAddToCart: string = "#add-to-cart-sauce-labs-backpack";
-    private backpackRemove: string = "#remove-sauce-labs-backpack";
+    private backpackAddToCartButton: string = "#add-to-cart-sauce-labs-backpack";
+    private backpackRemoveButton: string = "#remove-sauce-labs-backpack";
     //---End - Sauce Labs Backpack---//
 
-    //---Start - inventory items---//
-    private inventoryItemNames: string = ".inventory_item_name";
-    private inventoryItemPrices: string = ".inventory_item_price";
-    //---End - inventory items---//
+    //---Start - inventory items text---//
+    private inventoryItemNamesText: string = ".inventory_item_name";
+    private inventoryItemPricesText: string = ".inventory_item_price";
+    //---End - inventory items text---//
 
     //---Start - shopping cart---//
     private shoppingCartBadge: string = ".shopping_cart_badge";
+    private shoppingCartButton: string = ".shopping_cart_link";
     //---End - shopping cart---//
 
     //---Start - All Add to card/Remove button---//
-    private allAddToCart: string = "button.btn";
-    private allRemove: string = "button.btn";
+    private allAddToCartButton: string = "button.btn";
+    private allRemoveButton: string = "button.btn";
     //---End - All Add to card/Remove button---//
 
     //--Sort button--//
@@ -58,17 +59,17 @@ class Inventory {
 
     //--Backpack price text--//
     get backpackPriceElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.backpackPrice);
+        return cy.get(this.backpackPriceText);
     }
 
     //--Backpack title text--//
     get backpackTitleElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.backpackTitle);
+        return cy.get(this.backpackTitleText);
     }
 
     //--Backpack description text--//
     get backpackDescriptionElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.backpackDescription);
+        return cy.get(this.backpackDescriptionText);
     }
 
     //--Backpack image--//
@@ -78,22 +79,22 @@ class Inventory {
 
     //--Backpack Add to cart button--//
     get backpackAddToCartElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.backpackAddToCart);
+        return cy.get(this.backpackAddToCartButton);
     }
 
     //--Backpack Remove button--//
     get backpackRemoveElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.backpackRemove);
+        return cy.get(this.backpackRemoveButton);
     }
 
     //--Inventory Item names list--//
     get inventoryItemNamesElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.inventoryItemNames);
+        return cy.get(this.inventoryItemNamesText);
     }
 
     //--Inventory Item prices list--//
     get inventoryItemPricesElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.inventoryItemPrices);
+        return cy.get(this.inventoryItemPricesText);
     }
 
     //--Shopping cart badge--//
@@ -101,18 +102,18 @@ class Inventory {
         return cy.get(this.shoppingCartBadge);
     }
 
+    get shoppingCartButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.shoppingCartButton);
+    }
+
     //--All add to cart button--//
     get allAddToCardElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.allAddToCart);
+        return cy.get(this.allAddToCartButton);
     }
 
     //--All remove button--//
     get allRemoveElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.allRemove);
-    }
-
-    visit(): void {
-        cy.visit(`${Cypress.env('sauceLabs')}`);
+        return cy.get(this.allRemoveButton);
     }
 }
 

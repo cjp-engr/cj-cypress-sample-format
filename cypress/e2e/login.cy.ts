@@ -3,8 +3,8 @@ import { ValidCredentials, UserList, InvalidCredentials } from "./model";
 
 describe('Login Page', () => {
     beforeEach(() => {
-        LoginPage.visit();
-        cy.fixture('login').as('login')
+        cy.visitSauceLabs();
+        cy.fixture('login').as('login');
     })
 
     it('Successfully displayed the image - not broken image', () => {
@@ -62,7 +62,7 @@ describe('Login Page', () => {
             .then((users) => {
 
                 users.forEach((user) => {
-                    LoginPage.visit();
+                    cy.visitSauceLabs();
                     if (user.valid) {
                         LoginPage.usernameElement.type(user.username);
                         LoginPage.passwordElement.type(user.password);
@@ -94,7 +94,7 @@ describe('Login Page', () => {
         });
     });
 
-    it.only('Viewport iphone-6', () => {
+    it('Viewport iphone-6', () => {
         cy.viewport('iphone-6');
         LoginPage.imageElement.should('be.visible');
         cy.scrollTo('bottom', { duration: 300 });

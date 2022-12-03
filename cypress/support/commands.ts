@@ -19,6 +19,10 @@ Cypress.Commands.add('login', (username: string, password: string) => {
     cy.get("#login-button").click();
 })
 
+Cypress.Commands.add('visitSauceLabs', () => {
+    cy.visit(`${Cypress.env('sauceLabs')}`);
+})
+
 
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
@@ -35,6 +39,7 @@ declare global {
     namespace Cypress {
         interface Chainable {
             login(email: string, password: string): Chainable<void>
+            visitSauceLabs(): Chainable<void>
             //   drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
             //   dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
             //   visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>

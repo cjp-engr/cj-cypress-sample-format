@@ -1,12 +1,12 @@
 import { InventoryPage } from "../../cypress/pages/Inventory";
 import { LoginPage } from "../../cypress/pages/Login";
-import { ValidCredentials } from "./model";
+import { InventoryTestData, ValidCredentials } from "./model";
 
 let img: HTMLImageElement;
 
 describe('Add to cart and remove products scenario', () => {
     beforeEach(() => {
-        InventoryPage.visit();
+        cy.visitSauceLabs();
         cy.fixture('login').as('login')
         cy.get<ValidCredentials>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
@@ -66,7 +66,7 @@ describe('Add to cart and remove products scenario', () => {
 
     });
 
-    it.only('Successfully clicked all the "Remove" button and displayed the expected number of shopping cart badge', () => {
+    it('Successfully clicked all the "Remove" button and displayed the expected number of shopping cart badge', () => {
         InventoryPage.allAddToCardElement
             .each(($el, index, list) => {
                 if ($el.text() === 'Add to cart') {
@@ -88,8 +88,9 @@ describe('Add to cart and remove products scenario', () => {
 
 describe('Successfully sorted the products according to names in ascending or descending order', () => {
     beforeEach(() => {
-        InventoryPage.visit();
-        cy.fixture('login').as('login')
+        cy.visitSauceLabs();
+        cy.fixture('login').as('login');
+        cy.fixture('inventory').as('inventory');
         cy.get<ValidCredentials>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -108,10 +109,11 @@ describe('Successfully sorted the products according to names in ascending or de
         InventoryPage.inventoryItemNamesElement.each(($el, index, list) => {
             optionsArray[index] = $el.text();
         }).then(() => {
-            expect(optionsArray).to.deep
-                .equal(['Sauce Labs Backpack', 'Sauce Labs Bike Light',
-                    'Sauce Labs Bolt T-Shirt', 'Sauce Labs Fleece Jacket',
-                    'Sauce Labs Onesie', 'Test.allTheThings() T-Shirt (Red)'])
+            cy.get<InventoryTestData>('@inventory').then((data) => {
+                expect(optionsArray).to.deep
+                    .equal(data.sortedProductNamesAToZ);
+
+            });
         });
 
     });
@@ -122,10 +124,11 @@ describe('Successfully sorted the products according to names in ascending or de
         InventoryPage.inventoryItemNamesElement.each(($el, index, list) => {
             optionsArray[index] = $el.text();
         }).then(() => {
-            expect(optionsArray).to.deep
-                .equal(['Test.allTheThings() T-Shirt (Red)', 'Sauce Labs Onesie', 'Sauce Labs Fleece Jacket',
-                    'Sauce Labs Bolt T-Shirt', 'Sauce Labs Bike Light', 'Sauce Labs Backpack'])
+            cy.get<InventoryTestData>('@inventory').then((data) => {
+                expect(optionsArray).to.deep
+                    .equal(data.sortedProductNamesZToA);
 
+            });
         });
 
     });
@@ -134,8 +137,9 @@ describe('Successfully sorted the products according to names in ascending or de
 
 describe('Successfully sorted the products from low to high price after selecting the "Price (low TO high)"', () => {
     beforeEach(() => {
-        InventoryPage.visit();
-        cy.fixture('login').as('login')
+        cy.visitSauceLabs();
+        cy.fixture('login').as('login');
+        cy.fixture('inventory').as('inventory');
         cy.get<ValidCredentials>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -155,8 +159,13 @@ describe('Successfully sorted the products from low to high price after selectin
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
-            expect(optionsArray).to.deep
-                .equal(['$7.99', '$9.99', '$15.99', '$15.99', '$29.99', '$49.99']);
+            // expect(optionsArray).to.deep
+            //     .equal(['$7.99', '$9.99', '$15.99', '$15.99', '$29.99', '$49.99']);
+            cy.get<InventoryTestData>('@inventory').then((data) => {
+                expect(optionsArray).to.deep
+                    .equal(data.sortedProductPricesLowToHigh);
+
+            });
         });
 
     });
@@ -168,18 +177,24 @@ describe('Successfully sorted the products from low to high price after selectin
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
-            expect(optionsArray).to.deep
-                .equal(['Sauce Labs Onesie', 'Sauce Labs Bike Light',
-                    'Sauce Labs Bolt T-Shirt', 'Test.allTheThings() T-Shirt (Red)',
-                    'Sauce Labs Backpack', 'Sauce Labs Fleece Jacket']);
+            // expect(optionsArray).to.deep
+            //     .equal(['Sauce Labs Onesie', 'Sauce Labs Bike Light',
+            //         'Sauce Labs Bolt T-Shirt', 'Test.allTheThings() T-Shirt (Red)',
+            //         'Sauce Labs Backpack', 'Sauce Labs Fleece Jacket']);
+            cy.get<InventoryTestData>('@inventory').then((data) => {
+                expect(optionsArray).to.deep
+                    .equal(data.namesIfPricesSortedLowToHigh);
+
+            });
         });
     });
 });
 
 describe('Successfully sorted the products from high to low price after selecting the "Price (high TO low)"', () => {
     beforeEach(() => {
-        InventoryPage.visit();
+        cy.visitSauceLabs();
         cy.fixture('login').as('login');
+        cy.fixture('inventory').as('inventory');
         cy.get<ValidCredentials>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -199,8 +214,14 @@ describe('Successfully sorted the products from high to low price after selectin
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
-            expect(optionsArray).to.deep
-                .equal(['$49.99', '$29.99', '$15.99', '$15.99', '$9.99', '$7.99']);
+            // expect(optionsArray).to.deep
+            //     .equal(['$49.99', '$29.99', '$15.99', '$15.99', '$9.99', '$7.99']);
+            cy.get<InventoryTestData>('@inventory').then((data) => {
+                expect(optionsArray).to.deep
+                    .equal(data.sortedProductPricesHighToLow);
+
+            });
+
         });
 
     });
@@ -212,10 +233,15 @@ describe('Successfully sorted the products from high to low price after selectin
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
-            expect(optionsArray).to.deep
-                .equal(['Sauce Labs Fleece Jacket', 'Sauce Labs Backpack',
-                    'Sauce Labs Bolt T-Shirt', 'Test.allTheThings() T-Shirt (Red)',
-                    'Sauce Labs Bike Light', 'Sauce Labs Onesie']);
+            // expect(optionsArray).to.deep
+            //     .equal(['Sauce Labs Fleece Jacket', 'Sauce Labs Backpack',
+            //         'Sauce Labs Bolt T-Shirt', 'Test.allTheThings() T-Shirt (Red)',
+            //         'Sauce Labs Bike Light', 'Sauce Labs Onesie']);
+            cy.get<InventoryTestData>('@inventory').then((data) => {
+                expect(optionsArray).to.deep
+                    .equal(data.namesIfPricesSortedHighToLow);
+
+            });
         });
     });
 
@@ -223,7 +249,7 @@ describe('Successfully sorted the products from high to low price after selectin
 
 describe('Broken image assertion', () => {
     beforeEach(() => {
-        InventoryPage.visit();
+        cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.get<ValidCredentials>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
