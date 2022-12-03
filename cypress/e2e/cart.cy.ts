@@ -28,7 +28,7 @@ describe('Visit cart page scenario', () => {
     });
 });
 
-describe('Successfully added product/s to cart scenario', () => {
+describe('Successfully added or remove product/s to/from cart scenario', () => {
     beforeEach(() => {
         cy.visitSauceLabs();
         cy.fixture('login').as('login');
@@ -45,7 +45,7 @@ describe('Successfully added product/s to cart scenario', () => {
         cy.clearLocalStorage();
     });
 
-    it.only('Successfully added the "Sauce Labs Backpack" item to cart page', () => {
+    it('Successfully added the "Sauce Labs Backpack" item to cart page', () => {
         InventoryPage.backpackAddToCartElement.contains('Add to cart').click();
         InventoryPage.shoppingCartButtonElement.click();
         cy.get<CartTestData>('@cart').then((data) => {
@@ -59,6 +59,39 @@ describe('Successfully added product/s to cart scenario', () => {
                 expect($price).to.contain(data.sauceLabsBackPackPrice);
             });
         });
+        CartPage.allCartQuantityTextElement.should(($quantity) => {
+            expect($quantity).to.contain('1');
+        });
+        CartPage.emptyCartElement.should(($empty) => {
+            expect($empty).not.to.exist;
+        });
 
     });
+
+    it('Successfully removed the "Sauce Labs Backpack" item to cart page', () => {
+        InventoryPage.backpackAddToCartElement.contains('Add to cart').click();
+        InventoryPage.shoppingCartButtonElement.click();
+        CartPage.allRemoveButtonElement
+            .each(($el, index, list) => {
+                if ($el.text() === 'Remove') {
+                    $el.trigger("click");
+                }
+            });
+        CartPage.emptyCartElement.should(($empty) => {
+            expect($empty).to.exist;
+        });
+    });
+
+    it.only('Successfully added all the items to cart page', () => {
+        InventoryPage.allProductNamesTextElement
+            .each(($el, index, list) => {
+                if ($el.text() === 'Sauce Labs Bolt T-Shirt') {
+                    cy.log(index.toString());
+                    cy.get(`.inventory_item:nth-child(${index + 1}) button.btn_inventory`).click();
+                }
+            });
+
+    });
+
 });
+

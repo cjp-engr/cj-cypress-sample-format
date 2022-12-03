@@ -8,6 +8,7 @@ class Cart {
     private inventoryItemNameText: string = ".inventory_item_name";
     private inventoryItemDescriptionText: string = ".inventory_item_desc";
     private inventoryItemPriceText: string = ".inventory_item_price";
+    private emptyCart: string = ".removed_cart_item";
 
     get shoppingCartButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.shoppingCartButton);
@@ -43,6 +44,10 @@ class Cart {
 
     get inventoryItemPriceTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.inventoryItemPriceText);
+    }
+
+    get emptyCartElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.emptyCart);
     }
 }
 

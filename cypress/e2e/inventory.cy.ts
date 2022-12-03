@@ -106,7 +106,7 @@ describe('Successfully sorted the products according to names in ascending or de
     it('Successfully sorted the products from a to z after selecting the "Name (A TO Z)"', () => {
         let optionsArray = [];
         InventoryPage.sortElement.select(InventoryPage.sortNameAToZText);
-        InventoryPage.inventoryItemNamesElement.each(($el, index, list) => {
+        InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
             optionsArray[index] = $el.text();
         }).then(() => {
             cy.get<InventoryTestData>('@inventory').then((data) => {
@@ -121,7 +121,7 @@ describe('Successfully sorted the products according to names in ascending or de
     it('Successfully sorted the products from z to a after selecting the "Name (Z TO A)"', () => {
         let optionsArray = [];
         InventoryPage.sortElement.select(InventoryPage.sortNameZToAText);
-        InventoryPage.inventoryItemNamesElement.each(($el, index, list) => {
+        InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
             optionsArray[index] = $el.text();
         }).then(() => {
             cy.get<InventoryTestData>('@inventory').then((data) => {
@@ -155,7 +155,7 @@ describe('Successfully sorted the products from low to high price after selectin
     it('Check if the price is sorted from low to high accordingly', () => {
         let optionsArray = [];
         InventoryPage.sortElement.select(InventoryPage.sortPriceLowToHighText);
-        InventoryPage.inventoryItemPricesElement.each(($el, index, list) => {
+        InventoryPage.allProductPricesTextElement.each(($el, index, list) => {
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
@@ -173,7 +173,7 @@ describe('Successfully sorted the products from low to high price after selectin
     it('Check if the names are sorted accordingly', () => {
         let optionsArray = [];
         InventoryPage.sortElement.select(InventoryPage.sortPriceLowToHighText);
-        InventoryPage.inventoryItemNamesElement.each(($el, index, list) => {
+        InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
@@ -210,7 +210,7 @@ describe('Successfully sorted the products from high to low price after selectin
     it('Check if the price is sorted from high to low accordingly', () => {
         let optionsArray = [];
         InventoryPage.sortElement.select(InventoryPage.sortPriceHighToLowText);
-        InventoryPage.inventoryItemPricesElement.each(($el, index, list) => {
+        InventoryPage.allProductPricesTextElement.each(($el, index, list) => {
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
@@ -229,7 +229,7 @@ describe('Successfully sorted the products from high to low price after selectin
     it('Check if the names are sorted accordingly', () => {
         let optionsArray = [];
         InventoryPage.sortElement.select(InventoryPage.sortPriceHighToLowText);
-        InventoryPage.inventoryItemNamesElement.each(($el, index, list) => {
+        InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {

@@ -18,8 +18,8 @@ class Inventory {
     //---End - Sauce Labs Backpack---//
 
     //---Start - inventory items text---//
-    private inventoryItemNamesText: string = ".inventory_item_name";
-    private inventoryItemPricesText: string = ".inventory_item_price";
+    private allProductNamesText: string = ".inventory_item_name";
+    private allProductPricesText: string = ".inventory_item_price";
     //---End - inventory items text---//
 
     //---Start - shopping cart---//
@@ -88,13 +88,13 @@ class Inventory {
     }
 
     //--Inventory Item names list--//
-    get inventoryItemNamesElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.inventoryItemNamesText);
+    get allProductNamesTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.allProductNamesText);
     }
 
     //--Inventory Item prices list--//
-    get inventoryItemPricesElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.inventoryItemPricesText);
+    get allProductPricesTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.allProductPricesText);
     }
 
     //--Shopping cart badge--//
