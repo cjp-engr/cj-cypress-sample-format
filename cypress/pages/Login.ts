@@ -5,7 +5,8 @@ class Login {
     private login: string = "#login-button";
     private errorMessage: string = "[data-test='error']";
     private image: string = ".bot_column";
-
+    private burgerMenu: string = "#react-burger-menu-btn";
+    private logout: string = "#logout_sidebar_link";
 
     //--Username Text field--//
     get usernameElement(): Cypress.Chainable<JQuery<HTMLElement>> {
@@ -30,6 +31,14 @@ class Login {
     //--Error message--//
     get errorMessageElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.errorMessage);
+    }
+
+    get burgerMenuElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.burgerMenu);
+    }
+
+    get logoutElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.logout);
     }
 
     visit(): void {

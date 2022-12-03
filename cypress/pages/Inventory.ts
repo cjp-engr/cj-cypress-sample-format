@@ -19,6 +19,9 @@ class Inventory {
     private inventoryItemNames: string = ".inventory_item_name";
     private inventoryItemPrices: string = ".inventory_item_price";
     //---End - inventory items---//
+    //---Start - shopping cart---//
+    private shoppingCartBadge: string = ".shopping_cart_badge";
+    //---End - shopping cart---//
 
     //--Sort button--//
     get sortElement(): Cypress.Chainable<JQuery<HTMLElement>> {
@@ -83,6 +86,11 @@ class Inventory {
     //--Inventory Item prices list--//
     get inventoryItemPricesElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.inventoryItemPrices);
+    }
+
+    //--Shopping cart badge--//
+    get shoppingCartBadgeElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.shoppingCartBadge);
     }
 
     visit(): void {

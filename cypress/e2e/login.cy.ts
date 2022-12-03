@@ -8,7 +8,7 @@ describe('Login Page', () => {
     })
 
     it('Successfully displayed the image - not broken image', () => {
-        LoginPage.imageElement.should('be.visible')
+        LoginPage.imageElement.should('be.visible');
     });
 
     it('Success Login Scenario', () => {
@@ -17,9 +17,9 @@ describe('Login Page', () => {
             LoginPage.passwordElement.type(user.validPassword);
             LoginPage.loginElement.click();
             cy.url().should('contain', 'inventory.html');
-
+            cy.clearCookies();
+            cy.clearLocalStorage();
         });
-
     });
 
     it('Failed Login Scenario due to incorrect credentials', () => {
@@ -29,10 +29,33 @@ describe('Login Page', () => {
             LoginPage.loginElement.click();
             LoginPage.errorMessageElement.should('have.text',
                 'Epic sadface: Username and password do not match any user in this service');
-
-
         });
+    });
 
+    it('Failed Login Scenario due to empty username and password', () => {
+        cy.get<InvalidCredentials>('@login').then((user) => {
+            LoginPage.loginElement.click();
+            LoginPage.errorMessageElement.should('have.text',
+                'Epic sadface: Username is required');
+        });
+    });
+
+    it('Failed Login Scenario due to valid username but empty password', () => {
+        cy.get<ValidCredentials>('@login').then((user) => {
+            LoginPage.usernameElement.type(user.validUserName);
+            LoginPage.loginElement.click();
+            LoginPage.errorMessageElement.should('have.text',
+                'Epic sadface: Password is required');
+        });
+    });
+
+    it('Failed Login Scenario due to empty username but password is not', () => {
+        cy.get<ValidCredentials>('@login').then((user) => {
+            LoginPage.usernameElement.type(user.validUserName);
+            LoginPage.loginElement.click();
+            LoginPage.errorMessageElement.should('have.text',
+                'Epic sadface: Password is required');
+        });
     });
 
     it('Success & Failed Login Scenario - Handling array of objects', () => {
@@ -60,6 +83,23 @@ describe('Login Page', () => {
                 });
             });
 
+    });
+
+    it('Success Logout Scenario', () => {
+        cy.get<ValidCredentials>('@login').then((user) => {
+            LoginPage.usernameElement.type(user.validUserName);
+            LoginPage.passwordElement.type(user.validPassword);
+            LoginPage.loginElement.click();
+            // cy.url().should('contain', 'inventory.html');
+            LoginPage.burgerMenuElement.should('be.visible').click();
+            LoginPage.logoutElement.should('have.text', 'Logout').click();
+            cy.url().should('contain', 'https://www.saucedemo.com/');
+        });
+    });
+
+    it('Viewport iphone-6', () => {
+        cy.viewport('iphone-6');
+        LoginPage.imageElement.should('be.visible');
     });
 
 });

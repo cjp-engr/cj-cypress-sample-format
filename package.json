@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "runner": "cypress open"
+    "runner": "cypress open",
+    "runner-mobile": "cypress open --e2e --browser chrome --config viewportWidth=414,viewportHeight=896"
   },
   "keywords": [
     "cypress",
