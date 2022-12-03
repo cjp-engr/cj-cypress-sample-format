@@ -125,5 +125,31 @@ describe('Successfully sorted the products from high to low price after selectin
         });
     });
 
+    it('Check if the prices are sorted accordingly', () => {
+        let optionsArray = []
+        // InventoryPage.sortElement.select(InventoryPage.sortPriceLowToHighText);
+        // InventoryPage.inventoryItemPricesElement.each(($el, index, list) => {
+        //     optionsArray[index] = $el.text()
+        //     cy.log(optionsArray[index]);
+        // }).then(() => {
+        //     expect(optionsArray).to.deep
+        //         .equal(['$7.99', '$9.99', '$15.99', '$15.99', '$29.99', '$49.99']);
+        // });
+
+    });
+
+    it('Check if the names are sorted accordingly', () => {
+        let optionsArray = []
+        // InventoryPage.sortElement.select(InventoryPage.sortPriceLowToHighText);
+        // InventoryPage.inventoryItemNamesElement.each(($el, index, list) => {
+        //     optionsArray[index] = $el.text()
+        //     cy.log(optionsArray[index]);
+        // }).then(() => {
+        //     expect(optionsArray).to.deep
+        //         .equal(['Sauce Labs Onesie', 'Sauce Labs Bike Light',
+        //             'Sauce Labs Bolt T-Shirt', 'Test.allTheThings() T-Shirt (Red)',
+        //             'Sauce Labs Backpack', 'Sauce Labs Fleece Jacket']);
+        // });
+    });
 
 });
