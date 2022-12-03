@@ -7,6 +7,7 @@ class Inventory {
     private sortPriceLowToHigh: string = "Price (low to high)";
     private sortPriceHighToLow: string = "Price (high to low)";
     //---End - Sorting of products---//
+
     //---Start - Sauce Labs Backpack---//
     private backpackPrice: string = ".inventory_item:nth-child(1) .inventory_item_price";
     private backpackTitle: string = ".inventory_item:nth-child(1) .inventory_item_name";
@@ -15,13 +16,20 @@ class Inventory {
     private backpackAddToCart: string = "#add-to-cart-sauce-labs-backpack";
     private backpackRemove: string = "#remove-sauce-labs-backpack";
     //---End - Sauce Labs Backpack---//
+
     //---Start - inventory items---//
     private inventoryItemNames: string = ".inventory_item_name";
     private inventoryItemPrices: string = ".inventory_item_price";
     //---End - inventory items---//
+
     //---Start - shopping cart---//
     private shoppingCartBadge: string = ".shopping_cart_badge";
     //---End - shopping cart---//
+
+    //---Start - All Add to card/Remove button---//
+    private allAddToCart: string = "button.btn";
+    private allRemove: string = "button.btn";
+    //---End - All Add to card/Remove button---//
 
     //--Sort button--//
     get sortElement(): Cypress.Chainable<JQuery<HTMLElement>> {
@@ -91,6 +99,16 @@ class Inventory {
     //--Shopping cart badge--//
     get shoppingCartBadgeElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.shoppingCartBadge);
+    }
+
+    //--All add to cart button--//
+    get allAddToCardElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.allAddToCart);
+    }
+
+    //--All remove button--//
+    get allRemoveElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.allRemove);
     }
 
     visit(): void {

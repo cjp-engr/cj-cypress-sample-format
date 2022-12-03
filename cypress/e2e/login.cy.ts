@@ -33,11 +33,9 @@ describe('Login Page', () => {
     });
 
     it('Failed Login Scenario due to empty username and password', () => {
-        cy.get<InvalidCredentials>('@login').then((user) => {
-            LoginPage.loginElement.click();
-            LoginPage.errorMessageElement.should('have.text',
-                'Epic sadface: Username is required');
-        });
+        LoginPage.loginElement.click();
+        LoginPage.errorMessageElement.should('have.text',
+            'Epic sadface: Username is required');
     });
 
     it('Failed Login Scenario due to valid username but empty password', () => {
@@ -90,16 +88,16 @@ describe('Login Page', () => {
             LoginPage.usernameElement.type(user.validUserName);
             LoginPage.passwordElement.type(user.validPassword);
             LoginPage.loginElement.click();
-            // cy.url().should('contain', 'inventory.html');
             LoginPage.burgerMenuElement.should('be.visible').click();
             LoginPage.logoutElement.should('have.text', 'Logout').click();
             cy.url().should('contain', 'https://www.saucedemo.com/');
         });
     });
 
-    it('Viewport iphone-6', () => {
+    it.only('Viewport iphone-6', () => {
         cy.viewport('iphone-6');
         LoginPage.imageElement.should('be.visible');
+        cy.scrollTo('bottom', { duration: 300 });
     });
 
 });

@@ -1,4 +1,5 @@
 import { InventoryPage } from "../../cypress/pages/Inventory";
+import { LoginPage } from "../../cypress/pages/Login";
 import { ValidCredentials } from "./model";
 
 let img: HTMLImageElement;
@@ -13,6 +14,8 @@ describe('Add to cart and remove products scenario', () => {
     });
 
     afterEach(() => {
+        LoginPage.burgerMenuElement.click();
+        LoginPage.logoutElement.click();
         cy.clearCookies();
         cy.clearLocalStorage();
     });
@@ -49,6 +52,19 @@ describe('Add to cart and remove products scenario', () => {
         });
 
     });
+
+    it('Successfully clicked all the add to cart button and displayed the expected number of shopping cart badge', () => {
+        InventoryPage.allAddToCardElement
+            .each(($el, index, list) => {
+                if ($el.text() === 'Add to cart') {
+                    $el.trigger("click");
+                }
+            });
+        InventoryPage.shoppingCartBadgeElement.should(($content) => {
+            expect($content).to.contain('6');
+        });
+
+    });
 });
 
 describe('Successfully sorted the products according to names in ascending or descending order', () => {
@@ -61,6 +77,8 @@ describe('Successfully sorted the products according to names in ascending or de
     });
 
     afterEach(() => {
+        LoginPage.burgerMenuElement.click();
+        LoginPage.logoutElement.click();
         cy.clearCookies();
         cy.clearLocalStorage();
     });
@@ -105,6 +123,8 @@ describe('Successfully sorted the products from low to high price after selectin
     });
 
     afterEach(() => {
+        LoginPage.burgerMenuElement.click();
+        LoginPage.logoutElement.click();
         cy.clearCookies();
         cy.clearLocalStorage();
     });
@@ -147,6 +167,8 @@ describe('Successfully sorted the products from high to low price after selectin
     });
 
     afterEach(() => {
+        LoginPage.burgerMenuElement.click();
+        LoginPage.logoutElement.click();
         cy.clearCookies();
         cy.clearLocalStorage();
     });
@@ -190,6 +212,8 @@ describe('Broken image assertion', () => {
     });
 
     afterEach(() => {
+        LoginPage.burgerMenuElement.click();
+        LoginPage.logoutElement.click();
         cy.clearCookies();
         cy.clearLocalStorage();
     });
