@@ -28,3 +28,9 @@ export interface CartTestData {
     sauceLabsBackPackDescription: string;
     sauceLabsBackPackPrice: string;
 }
+
+export interface CheckoutStepOneData {
+    firstName: string;
+    lastName: string;
+    postalCode: string;
+}

@@ -112,5 +112,36 @@ describe('Successfully added or remove product/s to/from cart scenario', () => {
 
     });
 
+    it('Retain the items added to cart after clicking the "Continue Shopping" and returning to Cart page', () => {
+        cy.get<InventoryTestData>('@inventory').then((data) => {
+            cy.log(data.sortedProductNamesAToZ[2]);
+            InventoryPage.allProductNamesTextElement
+                .each(($el, index, list) => {
+                    if ($el.text() === data.sortedProductNamesAToZ[2] || $el.text() === data.sortedProductNamesAToZ[4]) {
+                        cy.log(index.toString());
+                        InventoryPage.setAddToCartIndex = index + 1;
+                        InventoryPage.dynamicAddToCardElement.click();
+                    }
+                });
+        });
+        InventoryPage.shoppingCartButtonElement.click();
+        CartPage.continueShoppingButtonElement.contains('Continue Shopping').click();
+        InventoryPage.shoppingCartButtonElement.click();
+        CartPage.emptyCartElement.should(($empty) => {
+            expect($empty).not.to.exist;
+        });
+        CartPage.shoppingCartBadgeElement.should(($badge) => {
+            expect($badge).to.contain('2')
+        });
+        cy.get<InventoryTestData>('@inventory').then((data) => {
+            CartPage.inventoryItemNameTextElement.should(($names) => {
+                expect($names).to.contain(data.sortedProductNamesAToZ[2]);
+                expect($names).to.contain(data.sortedProductNamesAToZ[4]);
+            });
+
+        });
+
+    });
+
 });
 
