@@ -24,5 +24,10 @@
     "validUserName": "standard_user",
     "validPassword": "secret_sauce",
     "invalidUserName": "very_wrong_username",
-    "invalidPassword": "very_wrong_password"
+    "invalidPassword": "very_wrong_password",
+    "lockedOutUserName": "locked_out_user",
+    "usernameNotRegisteredError": "Epic sadface: Username and password do not match any user in this service",
+    "usernameIsRequiredError": "Epic sadface: Username is required",
+    "passwordIsRequiredError": "Epic sadface: Password is required",
+    "lockedoutError": "Epic sadface: Sorry, this user has been locked out."
 }

@@ -1,5 +1,8 @@
 {
     "firstName": "First Name",
     "lastName": "Last",
-    "postalCode": "12345"
+    "postalCode": "12345",
+    "firstNameIsRequiredError": "Error: First Name is required",
+    "lastNameIsRequiredError": "Error: Last Name is required",
+    "postalCodeIsRequiredError": "Error: Postal Code is required"
 }

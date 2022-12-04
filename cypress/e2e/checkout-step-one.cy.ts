@@ -2,13 +2,13 @@ import { CartPage } from "../pages/Cart";
 import { CheckoutStepOnePage } from "../pages/CheckoutStepOne";
 import { InventoryPage } from "../pages/Inventory";
 import { LoginPage } from "../pages/Login";
-import { CheckoutStepOneData, ValidCredentials } from "./model";
+import { CheckoutStepOneData, LoginTestData } from "./model";
 
 describe('Visit checkout step one page scenario', () => {
     beforeEach(() => {
         cy.visitSauceLabs();
         cy.fixture('login').as('login');
-        cy.get<ValidCredentials>('@login').then((user) => {
+        cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
     });
@@ -29,9 +29,14 @@ describe('Visit checkout step one page scenario', () => {
     });
 
     //! error will occur here
-    it('Failed in routing to Checkout step one page because the cart is empty', () => {
+    it.only('Failed to route in Checkout step one page because the cart is empty', () => {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartButtonElement.click();
+        CartPage.allRemoveButtonElement.each(($el, index, list) => {
+            if ($el.text() === 'Remove') {
+                $el.trigger("click");
+            }
+        });
         CartPage.emptyCartElement.should(($empty) => {
             expect($empty).to.exist;
         });
@@ -46,7 +51,7 @@ describe('Checkout form scenarios', () => {
         cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.fixture('checkout_step_one').as('checkoutOne');
-        cy.get<ValidCredentials>('@login').then((user) => {
+        cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
@@ -74,8 +79,11 @@ describe('Checkout form scenarios', () => {
 
     it('Error displayed because all the text fields are empty', () => {
         CheckoutStepOnePage.continueButtonElement.contains('Continue').click();
-        CheckoutStepOnePage.errorMessageElement.should('have.text',
-            'Error: First Name is required');;
+        cy.get<CheckoutStepOneData>('@checkoutOne').then((data) => {
+            CheckoutStepOnePage.errorMessageElement.should('have.text',
+                data.firstNameIsRequiredError);
+        });
+
 
     });
 
@@ -83,30 +91,33 @@ describe('Checkout form scenarios', () => {
         cy.get<CheckoutStepOneData>('@checkoutOne').then((data) => {
             CheckoutStepOnePage.lastNameTextFieldElement.type(data.lastName);
             CheckoutStepOnePage.postalCodeTextFieldElement.type(data.postalCode);
+            CheckoutStepOnePage.continueButtonElement.contains('Continue').click();
+            CheckoutStepOnePage.errorMessageElement.should('have.text',
+                data.firstNameIsRequiredError);
         });
-        CheckoutStepOnePage.continueButtonElement.contains('Continue').click();
-        CheckoutStepOnePage.errorMessageElement.should('have.text',
-            'Error: First Name is required');;
+
     });
 
     it('Error displayed because the last name text field is empty', () => {
         cy.get<CheckoutStepOneData>('@checkoutOne').then((data) => {
             CheckoutStepOnePage.firstNameTextFieldElement.type(data.firstName);
             CheckoutStepOnePage.postalCodeTextFieldElement.type(data.postalCode);
+            CheckoutStepOnePage.continueButtonElement.contains('Continue').click();
+            CheckoutStepOnePage.errorMessageElement.should('have.text',
+                data.lastNameIsRequiredError);
         });
-        CheckoutStepOnePage.continueButtonElement.contains('Continue').click();
-        CheckoutStepOnePage.errorMessageElement.should('have.text',
-            'Error: Last Name is required');;
+
     });
 
     it('Error displayed because the zip/postal code text field is empty', () => {
         cy.get<CheckoutStepOneData>('@checkoutOne').then((data) => {
             CheckoutStepOnePage.firstNameTextFieldElement.type(data.firstName);
             CheckoutStepOnePage.lastNameTextFieldElement.type(data.lastName);
+            CheckoutStepOnePage.continueButtonElement.contains('Continue').click();
+            CheckoutStepOnePage.errorMessageElement.should('have.text',
+                data.postalCodeIsRequiredError);
         });
-        CheckoutStepOnePage.continueButtonElement.contains('Continue').click();
-        CheckoutStepOnePage.errorMessageElement.should('have.text',
-            'Error: Postal Code is required');;
+
     });
 });
 
@@ -114,7 +125,7 @@ describe('Shopping cart scenarios', () => {
     beforeEach(() => {
         cy.visitSauceLabs();
         cy.fixture('login').as('login');
-        cy.get<ValidCredentials>('@login').then((user) => {
+        cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
     });
@@ -135,8 +146,8 @@ describe('Shopping cart scenarios', () => {
             });
         InventoryPage.shoppingCartButtonElement.click();
         CartPage.checkoutButtonElement.contains('Checkout').click();
-        CheckoutStepOnePage.cartBadgeElement.should(($content) => {
-            expect($content).to.contain('6');
+        CheckoutStepOnePage.cartBadgeElement.should((content) => {
+            expect(content).to.contain('6');
         });
 
     });

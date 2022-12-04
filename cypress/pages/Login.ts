@@ -1,34 +1,29 @@
 class Login {
 
-    private username: string = "#user-name";
-    private password: string = "#password";
-    private login: string = "#login-button";
+    private usernameTextField: string = "#user-name";
+    private passwordTextField: string = "#password";
+    private loginButton: string = "#login-button";
     private errorMessage: string = "[data-test='error']";
     private image: string = ".bot_column";
     private burgerMenu: string = "#react-burger-menu-btn";
     private logout: string = "#logout_sidebar_link";
 
-    //--Username Text field--//
-    get usernameElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.username);
+    get usernameTextFieldElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.usernameTextField);
     }
 
-    //--Password Text field--//
-    get passwordElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.password);
+    get passwordTextFieldElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.passwordTextField);
     }
 
-    //--Login Button--//
-    get loginElement(): Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.login);
+    get loginButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.loginButton);
     }
 
-    //--Image--//
     get imageElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.image);
     }
 
-    //--Error message--//
     get errorMessageElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.errorMessage);
     }

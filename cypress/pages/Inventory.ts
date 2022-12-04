@@ -32,74 +32,62 @@ class Inventory {
     private allRemoveButton: string = "button.btn";
     //---End - All Add to card/Remove button---//
 
+    private burgerMenu: string = "";
+
     private addToCartIndex: number;
 
-    //--Sort button--//
     get sortButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.sort);
     }
 
-    //--Sort Name (A to Z)--//
     get sortNameAToZText(): string {
         return this.sortNameAToZ;
     }
 
-    //--Sort Name (Z to A)--//
     get sortNameZToAText(): string {
         return this.sortNameZToA;
     }
 
-    //--Sort Price (low to high)--//
     get sortPriceLowToHighText(): string {
         return this.sortPriceLowToHigh;
     }
 
-    //--Sort Price (high to low)--//
     get sortPriceHighToLowText(): string {
         return this.sortPriceHighToLow;
     }
 
-    //--Backpack price text--//
     get backpackPriceTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackPriceText);
     }
 
-    //--Backpack title text--//
     get backpackTitleTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackTitleText);
     }
 
-    //--Backpack description text--//
     get backpackDescriptionTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackDescriptionText);
     }
 
-    //--Backpack image--//
     get backpackImageElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackImage);
     }
 
-    //--Backpack Add to cart button--//
     get backpackAddToCartButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackAddToCartButton);
     }
 
-    //--Backpack Remove button--//
     get backpackRemoveButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackRemoveButton);
     }
 
-    //--Inventory Item names list--//
     get allProductNamesTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.allProductNamesText);
     }
 
-    //--Inventory Item prices list--//
     get allProductPricesTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.allProductPricesText);
     }
 
-    //--Shopping cart badge--//
     get shoppingCartBadgeElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.shoppingCartBadge);
     }
@@ -108,12 +96,10 @@ class Inventory {
         return cy.get(this.shoppingCartButton);
     }
 
-    //--All add to cart button--//
     get allAddToCardButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.allAddToCartButton);
     }
 
-    //--All remove button--//
     get allRemoveButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.allRemoveButton);
     }

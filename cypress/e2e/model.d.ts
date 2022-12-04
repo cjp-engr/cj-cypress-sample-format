@@ -1,11 +1,13 @@
-export interface ValidCredentials {
+export interface LoginTestData {
     validUserName: string;
     validPassword: string;
-}
-
-export interface InvalidCredentials {
     invalidUserName: string;
     invalidPassword: string;
+    lockedOutUserName: string;
+    usernameNotRegisteredError: string;
+    usernameIsRequiredError: string;
+    passwordIsRequiredError: string;
+    lockedoutError: string;
 }
 
 export interface UserList {
@@ -33,4 +35,13 @@ export interface CheckoutStepOneData {
     firstName: string;
     lastName: string;
     postalCode: string;
+    firstNameIsRequiredError: string;
+    lastNameIsRequiredError: string;
+    postalCodeIsRequiredError: string;
+}
+
+export interface CheckoutCompleteData {
+    title: string;
+    headerText: string;
+    bodyText: string;
 }

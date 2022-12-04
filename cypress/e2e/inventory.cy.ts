@@ -1,6 +1,6 @@
 import { InventoryPage } from "../../cypress/pages/Inventory";
 import { LoginPage } from "../../cypress/pages/Login";
-import { InventoryTestData, ValidCredentials } from "./model";
+import { InventoryTestData, LoginTestData } from "./model";
 
 let img: HTMLImageElement;
 
@@ -8,7 +8,7 @@ describe('Add to cart and remove products scenario', () => {
     beforeEach(() => {
         cy.visitSauceLabs();
         cy.fixture('login').as('login')
-        cy.get<ValidCredentials>('@login').then((user) => {
+        cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
     });
@@ -22,8 +22,8 @@ describe('Add to cart and remove products scenario', () => {
 
     it('Successfully changed button text from "ADD TO CART" to "REMOVE" after clicking the "ADD TO CART" button', () => {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
-        InventoryPage.backpackRemoveButtonElement.should(($buttonText) => {
-            expect($buttonText).to.contain('Remove');
+        InventoryPage.backpackRemoveButtonElement.should((buttonText) => {
+            expect(buttonText).to.contain('Remove');
         });
 
     });
@@ -31,15 +31,15 @@ describe('Add to cart and remove products scenario', () => {
     it('Successfully changed button text from "REMOVE" to "ADD TO CART" after clicking the "REMOVE" button', () => {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.backpackRemoveButtonElement.contains('Remove').click();
-        InventoryPage.backpackAddToCartButtonElement.should(($buttonText) => {
-            expect($buttonText).to.contain('Add to cart');
+        InventoryPage.backpackAddToCartButtonElement.should((buttonText) => {
+            expect(buttonText).to.contain('Add to cart');
         });
     });
 
     it('Successfully displayed the shopping cart badge after clicking the "ADD TO CART"', () => {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
-        InventoryPage.shoppingCartBadgeElement.should(($content) => {
-            expect($content).to.contain('1');
+        InventoryPage.shoppingCartBadgeElement.should((content) => {
+            expect(content).to.contain('1');
         });
     });
 
@@ -47,8 +47,8 @@ describe('Add to cart and remove products scenario', () => {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartBadgeElement.contains('1');
         InventoryPage.backpackRemoveButtonElement.contains('Remove').click();
-        InventoryPage.shoppingCartBadgeElement.should(($content) => {
-            expect($content).not.to.exist;
+        InventoryPage.shoppingCartBadgeElement.should((content) => {
+            expect(content).not.to.exist;
         });
 
     });
@@ -60,8 +60,8 @@ describe('Add to cart and remove products scenario', () => {
                     $el.trigger("click");
                 }
             });
-        InventoryPage.shoppingCartBadgeElement.should(($content) => {
-            expect($content).to.contain('6');
+        InventoryPage.shoppingCartBadgeElement.should((content) => {
+            expect(content).to.contain('6');
         });
 
     });
@@ -79,8 +79,8 @@ describe('Add to cart and remove products scenario', () => {
                     $el.trigger("click");
                 }
             });
-        InventoryPage.shoppingCartBadgeElement.should(($content) => {
-            expect($content).not.to.exist;
+        InventoryPage.shoppingCartBadgeElement.should((content) => {
+            expect(content).not.to.exist;
         });
 
     });
@@ -91,7 +91,7 @@ describe('Successfully sorted the products according to names in ascending or de
         cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.fixture('inventory').as('inventory');
-        cy.get<ValidCredentials>('@login').then((user) => {
+        cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
     });
@@ -140,7 +140,7 @@ describe('Successfully sorted the products from low to high price after selectin
         cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.fixture('inventory').as('inventory');
-        cy.get<ValidCredentials>('@login').then((user) => {
+        cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
     });
@@ -159,8 +159,6 @@ describe('Successfully sorted the products from low to high price after selectin
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
-            // expect(optionsArray).to.deep
-            //     .equal(['$7.99', '$9.99', '$15.99', '$15.99', '$29.99', '$49.99']);
             cy.get<InventoryTestData>('@inventory').then((data) => {
                 expect(optionsArray).to.deep
                     .equal(data.sortedProductPricesLowToHigh);
@@ -177,10 +175,6 @@ describe('Successfully sorted the products from low to high price after selectin
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
-            // expect(optionsArray).to.deep
-            //     .equal(['Sauce Labs Onesie', 'Sauce Labs Bike Light',
-            //         'Sauce Labs Bolt T-Shirt', 'Test.allTheThings() T-Shirt (Red)',
-            //         'Sauce Labs Backpack', 'Sauce Labs Fleece Jacket']);
             cy.get<InventoryTestData>('@inventory').then((data) => {
                 expect(optionsArray).to.deep
                     .equal(data.namesIfPricesSortedLowToHigh);
@@ -195,7 +189,7 @@ describe('Successfully sorted the products from high to low price after selectin
         cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.fixture('inventory').as('inventory');
-        cy.get<ValidCredentials>('@login').then((user) => {
+        cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
     });
@@ -214,8 +208,6 @@ describe('Successfully sorted the products from high to low price after selectin
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
-            // expect(optionsArray).to.deep
-            //     .equal(['$49.99', '$29.99', '$15.99', '$15.99', '$9.99', '$7.99']);
             cy.get<InventoryTestData>('@inventory').then((data) => {
                 expect(optionsArray).to.deep
                     .equal(data.sortedProductPricesHighToLow);
@@ -233,10 +225,6 @@ describe('Successfully sorted the products from high to low price after selectin
             optionsArray[index] = $el.text()
             cy.log(optionsArray[index]);
         }).then(() => {
-            // expect(optionsArray).to.deep
-            //     .equal(['Sauce Labs Fleece Jacket', 'Sauce Labs Backpack',
-            //         'Sauce Labs Bolt T-Shirt', 'Test.allTheThings() T-Shirt (Red)',
-            //         'Sauce Labs Bike Light', 'Sauce Labs Onesie']);
             cy.get<InventoryTestData>('@inventory').then((data) => {
                 expect(optionsArray).to.deep
                     .equal(data.namesIfPricesSortedHighToLow);
@@ -251,7 +239,7 @@ describe('Broken image assertion', () => {
     beforeEach(() => {
         cy.visitSauceLabs();
         cy.fixture('login').as('login');
-        cy.get<ValidCredentials>('@login').then((user) => {
+        cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
     });

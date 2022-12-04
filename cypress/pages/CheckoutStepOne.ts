@@ -10,6 +10,7 @@ class CheckoutStepOne {
     private cartBadge: string = ".shopping_cart_badge";
     private errorMessage: string = ".error-message-container > h3[data-test='error']";
 
+
     get firstNameTextFieldElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.firstNameTextField);
     }
