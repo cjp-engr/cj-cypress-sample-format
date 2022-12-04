@@ -32,8 +32,10 @@ class Inventory {
     private allRemoveButton: string = "button.btn";
     //---End - All Add to card/Remove button---//
 
+    private addToCartIndex: number;
+
     //--Sort button--//
-    get sortElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+    get sortButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.sort);
     }
 
@@ -58,17 +60,17 @@ class Inventory {
     }
 
     //--Backpack price text--//
-    get backpackPriceElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+    get backpackPriceTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackPriceText);
     }
 
     //--Backpack title text--//
-    get backpackTitleElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+    get backpackTitleTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackTitleText);
     }
 
     //--Backpack description text--//
-    get backpackDescriptionElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+    get backpackDescriptionTextElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackDescriptionText);
     }
 
@@ -78,12 +80,12 @@ class Inventory {
     }
 
     //--Backpack Add to cart button--//
-    get backpackAddToCartElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+    get backpackAddToCartButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackAddToCartButton);
     }
 
     //--Backpack Remove button--//
-    get backpackRemoveElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+    get backpackRemoveButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.backpackRemoveButton);
     }
 
@@ -107,13 +109,21 @@ class Inventory {
     }
 
     //--All add to cart button--//
-    get allAddToCardElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+    get allAddToCardButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.allAddToCartButton);
     }
 
     //--All remove button--//
-    get allRemoveElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+    get allRemoveButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.allRemoveButton);
+    }
+
+    set setAddToCartIndex(index: number) {
+        this.addToCartIndex = index;
+    }
+
+    get dynamicAddToCardElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(`.inventory_item:nth-child(${this.addToCartIndex}) button.btn_inventory`)
     }
 }
 

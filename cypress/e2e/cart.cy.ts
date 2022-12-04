@@ -1,7 +1,7 @@
 import { CartPage } from "../../cypress/pages/Cart";
 import { InventoryPage } from "../pages/Inventory";
 import { LoginPage } from "../pages/Login";
-import { CartTestData, ValidCredentials } from "./model";
+import { CartTestData, InventoryTestData, ValidCredentials } from "./model";
 
 describe('Visit cart page scenario', () => {
     beforeEach(() => {
@@ -32,6 +32,7 @@ describe('Successfully added or remove product/s to/from cart scenario', () => {
     beforeEach(() => {
         cy.visitSauceLabs();
         cy.fixture('login').as('login');
+        cy.fixture('inventory').as('inventory');
         cy.fixture('cart').as('cart');
         cy.get<ValidCredentials>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
@@ -46,7 +47,7 @@ describe('Successfully added or remove product/s to/from cart scenario', () => {
     });
 
     it('Successfully added the "Sauce Labs Backpack" item to cart page', () => {
-        InventoryPage.backpackAddToCartElement.contains('Add to cart').click();
+        InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartButtonElement.click();
         cy.get<CartTestData>('@cart').then((data) => {
             CartPage.inventoryItemNameTextElement.should(($name) => {
@@ -69,7 +70,7 @@ describe('Successfully added or remove product/s to/from cart scenario', () => {
     });
 
     it('Successfully removed the "Sauce Labs Backpack" item to cart page', () => {
-        InventoryPage.backpackAddToCartElement.contains('Add to cart').click();
+        InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartButtonElement.click();
         CartPage.allRemoveButtonElement
             .each(($el, index, list) => {
@@ -82,14 +83,32 @@ describe('Successfully added or remove product/s to/from cart scenario', () => {
         });
     });
 
-    it.only('Successfully added all the items to cart page', () => {
-        InventoryPage.allProductNamesTextElement
-            .each(($el, index, list) => {
-                if ($el.text() === 'Sauce Labs Bolt T-Shirt') {
-                    cy.log(index.toString());
-                    cy.get(`.inventory_item:nth-child(${index + 1}) button.btn_inventory`).click();
-                }
+    it('Successfully added the "Sauce Labs Bolt T-Shirt" and "Sauce Labs Onesie" items to cart page', () => {
+        cy.get<InventoryTestData>('@inventory').then((data) => {
+            cy.log(data.sortedProductNamesAToZ[2]);
+            InventoryPage.allProductNamesTextElement
+                .each(($el, index, list) => {
+                    if ($el.text() === data.sortedProductNamesAToZ[2] || $el.text() === data.sortedProductNamesAToZ[4]) {
+                        cy.log(index.toString());
+                        InventoryPage.setAddToCartIndex = index + 1;
+                        InventoryPage.dynamicAddToCardElement.click();
+                    }
+                });
+        });
+        InventoryPage.shoppingCartButtonElement.click();
+        CartPage.emptyCartElement.should(($empty) => {
+            expect($empty).not.to.exist;
+        });
+        CartPage.shoppingCartBadgeElement.should(($badge) => {
+            expect($badge).to.contain('2')
+        });
+        cy.get<InventoryTestData>('@inventory').then((data) => {
+            CartPage.inventoryItemNameTextElement.should(($names) => {
+                expect($names).to.contain(data.sortedProductNamesAToZ[2]);
+                expect($names).to.contain(data.sortedProductNamesAToZ[4]);
             });
+
+        });
 
     });
 

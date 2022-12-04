@@ -1,5 +1,6 @@
 class Cart {
     private shoppingCartButton: string = ".shopping_cart_link";
+    private shoppingCartBadge: string = ".shopping_cart_link > .shopping_cart_badge";
     private burgerMenuButton: string = "#react-burger-menu-btn";
     private allCartQuantityText: string = ".cart_quantity";
     private allRemoveButton: string = "button.cart_button";
@@ -12,6 +13,10 @@ class Cart {
 
     get shoppingCartButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.shoppingCartButton);
+    }
+
+    get shoppingCartBadgeElement(): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(this.shoppingCartBadge);
     }
 
     get burgerMenuButtonElement(): Cypress.Chainable<JQuery<HTMLElement>> {
@@ -49,6 +54,8 @@ class Cart {
     get emptyCartElement(): Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.emptyCart);
     }
+
+
 }
 
 export const CartPage = new Cart();
