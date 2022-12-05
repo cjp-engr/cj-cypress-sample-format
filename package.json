@@ -6,6 +6,7 @@
   "scripts": {
     "cypress-open": "cypress open",
     "runner-mobile": "cypress open --e2e --browser chrome --config viewportWidth=414,viewportHeight=896",
+    "cypress-run-dash": "cypress run --browser chrome --record --key 61ef757c-dbf3-44ba-87c0-d536957c1388",
     "cypress-run": "cypress run"
   },
   "keywords": [
