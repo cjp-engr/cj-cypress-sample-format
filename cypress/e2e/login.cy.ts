@@ -125,7 +125,7 @@ describe('Login Page', () => {
 
 });
 
-describe.only('Attempt visiting the pages if the user is not yet logged in scenarios', () => {
+describe('Attempt visiting the pages if the user is not yet logged in scenarios', () => {
     beforeEach(() => {
         cy.fixture('login').as('login');
         cy.fixture('page_link').as('pageLink');
