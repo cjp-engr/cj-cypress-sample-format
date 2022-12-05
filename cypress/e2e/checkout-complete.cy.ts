@@ -10,10 +10,10 @@ let img: HTMLImageElement;
 
 describe('Routed to checkout complete page scenario', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.fixture('checkout_step_one').as('checkoutOne');
         cy.fixture('checkout_complete').as('checkoutComplete');
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });

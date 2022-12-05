@@ -3,13 +3,14 @@ import { CheckoutStepOnePage } from "../pages/CheckoutStepOne";
 import { CheckoutStepTwoPage } from "../pages/CheckoutStepTwo";
 import { InventoryPage } from "../pages/Inventory";
 import { LoginPage } from "../pages/Login";
-import { CheckoutStepOneData, InventoryTestData, LoginTestData } from "./model";
+import { CheckoutStepOneData, InventoryTestData, LoginTestData, PageLinkTestData } from "./model";
 
 describe('Visit checkout step two page scenario', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.fixture('checkout_step_one').as('checkoutOne');
+        cy.fixture('page_link').as('pageLink');
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -37,7 +38,10 @@ describe('Visit checkout step two page scenario', () => {
             CheckoutStepOnePage.postalCodeTextFieldElement.type(data.postalCode);
         });
         CheckoutStepOnePage.continueButtonElement.contains('Continue').click();
-        cy.url().should('contain', 'https://www.saucedemo.com/checkout-step-two.html');
+        cy.get<PageLinkTestData>('@pageLink').then((link) => {
+            cy.url().should('contain', link.checkoutTwoLink);
+        });
+
         CheckoutStepTwoPage.titleElement.should(($title) => {
             expect($title).to.contain('Checkout: Overview');
         });
@@ -47,10 +51,11 @@ describe('Visit checkout step two page scenario', () => {
 
 describe('Added all the products from cart scenarios', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.fixture('inventory').as('inventory');
         cy.fixture('checkout_step_one').as('checkoutOne');
+        cy.fixture('page_link').as('pageLink');
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -86,6 +91,22 @@ describe('Added all the products from cart scenarios', () => {
         });
     });
 
+    it('Successfully displayed the "Payment Information"', () => {
+        CheckoutStepTwoPage.paymentInfoValueElement.should((
+            info
+        ) => {
+            expect(info).to.contain('SauceCard #31337');
+        });
+    });
+
+    it('Successfully displayed the "Shipping Information"', () => {
+        CheckoutStepTwoPage.shippingInfoValueElement.should((
+            info
+        ) => {
+            expect(info).to.contain('FREE PONY EXPRESS DELIVERY!');
+        });
+    });
+
     it('Successfully displayed the correct subtotal for all the products added', () => {
         CheckoutStepTwoPage.itemTotalValueElement.should((subTotal) => {
             expect(subTotal).to.contain('Item total: $129.94');
@@ -112,7 +133,10 @@ describe('Added all the products from cart scenarios', () => {
 
     it('Successfully completed the transaction after clicking the "Finish" button', () => {
         CheckoutStepTwoPage.finishButtonElement.contains('Finish').click();
-        cy.url().should('contain', 'https://www.saucedemo.com/checkout-complete.html');
+        cy.get<PageLinkTestData>('@pageLink').then((link) => {
+            cy.url().should('contain', link.checkoutComplete);
+        });
+
     });
 });
 

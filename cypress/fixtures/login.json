@@ -29,5 +29,10 @@
     "usernameNotRegisteredError": "Epic sadface: Username and password do not match any user in this service",
     "usernameIsRequiredError": "Epic sadface: Username is required",
     "passwordIsRequiredError": "Epic sadface: Password is required",
-    "lockedoutError": "Epic sadface: Sorry, this user has been locked out."
+    "lockedoutError": "Epic sadface: Sorry, this user has been locked out.",
+    "inventoryLinkError": "Epic sadface: You can only access '/inventory.html' when you are logged in.",
+    "cartLinkError": "Epic sadface: You can only access '/cart.html' when you are logged in.",
+    "checkoutOneLinkError": "Epic sadface: You can only access '/checkout-step-one.html' when you are logged in.",
+    "checkoutTwoLinkError": "Epic sadface: You can only access '/checkout-step-two.html' when you are logged in.",
+    "checkoutCompleteError": "Epic sadface: You can only access '/checkout-complete.html' when you are logged in."
 }

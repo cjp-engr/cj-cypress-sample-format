@@ -6,8 +6,8 @@ let img: HTMLImageElement;
 
 describe('Add to cart and remove products scenario', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login')
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -88,9 +88,9 @@ describe('Add to cart and remove products scenario', () => {
 
 describe('Successfully sorted the products according to names in ascending or descending order', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.fixture('inventory').as('inventory');
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -137,9 +137,9 @@ describe('Successfully sorted the products according to names in ascending or de
 
 describe('Successfully sorted the products from low to high price after selecting the "Price (low TO high)"', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.fixture('inventory').as('inventory');
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -186,9 +186,9 @@ describe('Successfully sorted the products from low to high price after selectin
 
 describe('Successfully sorted the products from high to low price after selecting the "Price (high TO low)"', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
         cy.fixture('inventory').as('inventory');
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -237,8 +237,8 @@ describe('Successfully sorted the products from high to low price after selectin
 
 describe('Broken image assertion', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });

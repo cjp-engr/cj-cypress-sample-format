@@ -1,0 +1,8 @@
+{
+    "loginLink": "https://www.saucedemo.com/",
+    "inventoryLink": "https://www.saucedemo.com/inventory.html",
+    "cartLink": "https://www.saucedemo.com/cart.html",
+    "checkoutOneLink": "https://www.saucedemo.com/checkout-step-one.html",
+    "checkoutTwoLink": "https://www.saucedemo.com/checkout-step-two.html",
+    "checkoutComplete": "https://www.saucedemo.com/checkout-complete.html"
+}

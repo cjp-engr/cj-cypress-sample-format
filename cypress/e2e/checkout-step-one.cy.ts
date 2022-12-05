@@ -2,12 +2,13 @@ import { CartPage } from "../pages/Cart";
 import { CheckoutStepOnePage } from "../pages/CheckoutStepOne";
 import { InventoryPage } from "../pages/Inventory";
 import { LoginPage } from "../pages/Login";
-import { CheckoutStepOneData, LoginTestData } from "./model";
+import { CheckoutStepOneData, LoginTestData, PageLinkTestData } from "./model";
 
 describe('Visit checkout step one page scenario', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
+        cy.fixture('page_link').as('pageLink');
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -24,12 +25,15 @@ describe('Visit checkout step one page scenario', () => {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartButtonElement.click();
         CartPage.checkoutButtonElement.contains('Checkout').click();
-        cy.url().should('contain', 'https://www.saucedemo.com/checkout-step-one.html');
+        cy.get<PageLinkTestData>('@pageLink').then((link) => {
+            cy.url().should('contain', link.checkoutOneLink);
+        });
+
 
     });
 
     //! error will occur here
-    it.only('Failed to route in Checkout step one page because the cart is empty', () => {
+    it('Failed to route in Checkout step one page because the cart is empty', () => {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartButtonElement.click();
         CartPage.allRemoveButtonElement.each(($el, index, list) => {
@@ -41,16 +45,20 @@ describe('Visit checkout step one page scenario', () => {
             expect($empty).to.exist;
         });
         CartPage.checkoutButtonElement.contains('Checkout').click();
-        cy.url().should('contain', 'https://www.saucedemo.com/cart.html');
+        cy.get<PageLinkTestData>('@pageLink').then((link) => {
+            cy.url().should('contain', link.cartLink);
+        });
+
 
     });
 });
 
 describe('Checkout form scenarios', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
+        cy.fixture('page_link').as('pageLink');
         cy.fixture('checkout_step_one').as('checkoutOne');
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });
@@ -73,7 +81,10 @@ describe('Checkout form scenarios', () => {
             CheckoutStepOnePage.postalCodeTextFieldElement.type(data.postalCode);
         });
         CheckoutStepOnePage.continueButtonElement.contains('Continue').click();
-        cy.url().should('contain', 'https://www.saucedemo.com/checkout-step-two.html');
+        cy.get<PageLinkTestData>('@pageLink').then((link) => {
+            cy.url().should('contain', link.checkoutTwoLink);
+        });
+
 
     });
 
@@ -123,8 +134,8 @@ describe('Checkout form scenarios', () => {
 
 describe('Shopping cart scenarios', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
+        cy.visitSauceLabs();
         cy.get<LoginTestData>('@login').then((user) => {
             cy.login(user.validUserName, user.validPassword);
         });

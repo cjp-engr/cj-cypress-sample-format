@@ -1,11 +1,12 @@
 import { LoginPage } from "../../cypress/pages/Login";
-import { LoginTestData, UserList } from "./model";
+import { LoginTestData, PageLinkTestData, UserList } from "./model";
 
 describe('Login Page', () => {
     beforeEach(() => {
-        cy.visitSauceLabs();
         cy.fixture('login').as('login');
-    })
+        cy.fixture('page_link').as('pageLink');
+        cy.visitSauceLabs();
+    });
 
     it('Successfully displayed the image - not broken image', () => {
         LoginPage.imageElement.should('be.visible');
@@ -16,7 +17,9 @@ describe('Login Page', () => {
             LoginPage.usernameTextFieldElement.type(data.validUserName);
             LoginPage.passwordTextFieldElement.type(data.validPassword);
             LoginPage.loginButtonElement.click();
-            cy.url().should('contain', 'inventory.html');
+            cy.get<PageLinkTestData>('@pageLink').then((link) => {
+                cy.url().should('contain', link.inventoryLink);
+            });
             cy.clearCookies();
             cy.clearLocalStorage();
         });
@@ -60,7 +63,6 @@ describe('Login Page', () => {
         });
     });
 
-    //todo
     it('Failed Login Scenario because the user is locked out', () => {
         cy.get<LoginTestData>('@login').then((data) => {
             LoginPage.usernameTextFieldElement.type(data.lockedOutUserName);
@@ -108,7 +110,10 @@ describe('Login Page', () => {
             LoginPage.loginButtonElement.click();
             LoginPage.burgerMenuElement.should('be.visible').click();
             LoginPage.logoutElement.should('have.text', 'Logout').click();
-            cy.url().should('contain', 'https://www.saucedemo.com/');
+            cy.get<PageLinkTestData>('@pageLink').then((link) => {
+                cy.url().should('contain', link.loginLink);
+            });
+
         });
     });
 
@@ -119,4 +124,96 @@ describe('Login Page', () => {
     });
 
 });
+
+describe.only('Attempt visiting the pages if the user is not yet logged in scenarios', () => {
+    beforeEach(() => {
+        cy.fixture('login').as('login');
+        cy.fixture('page_link').as('pageLink');
+    })
+
+    it('Successfully displayed the error after entering the "https://www.saucedemo.com/inventory.html" in the url field', () => {
+        cy.get<PageLinkTestData>('@pageLink').then((link) => {
+            cy.visit(link.inventoryLink, { failOnStatusCode: false });
+            cy.request({
+                url: link.inventoryLink,
+                failOnStatusCode: false,
+            }).then((resp) => {
+                expect(resp.status).to.eq(404)
+            });
+        });
+        cy.get<LoginTestData>('@login').then((data) => {
+            LoginPage.errorMessageElement.should('have.text',
+                data.inventoryLinkError);
+        });
+    });
+
+    it('Successfully displayed the error after entering the "https://www.saucedemo.com/cart.html" in the url field', () => {
+        cy.get<PageLinkTestData>('@pageLink').then((link) => {
+            cy.visit(link.cartLink, { failOnStatusCode: false });
+            cy.request({
+                url: link.cartLink,
+                failOnStatusCode: false,
+            }).then((resp) => {
+                expect(resp.status).to.eq(404)
+            });
+        });
+        cy.get<LoginTestData>('@login').then((data) => {
+            LoginPage.errorMessageElement.should('have.text',
+                data.cartLinkError);
+        });
+    });
+
+    it('Successfully displayed the error after entering the "https://www.saucedemo.com/checkout-step-one.html" in the url field', () => {
+        cy.get<PageLinkTestData>('@pageLink').then((link) => {
+            cy.visit(link.checkoutOneLink, { failOnStatusCode: false });
+            cy.request({
+                url: link.checkoutOneLink,
+                failOnStatusCode: false,
+            }).then((resp) => {
+                expect(resp.status).to.eq(404)
+            });
+        });
+        cy.get<LoginTestData>('@login').then((data) => {
+            LoginPage.errorMessageElement.should('have.text',
+                data.checkoutOneLinkError);
+        });
+    });
+
+    it('Successfully displayed the error after entering the "https://www.saucedemo.com/checkout-step-two.html" in the url field', () => {
+        cy.get<PageLinkTestData>('@pageLink').then((link) => {
+            cy.visit(link.checkoutTwoLink, { failOnStatusCode: false });
+            cy.request({
+                url: link.checkoutTwoLink,
+                failOnStatusCode: false,
+            }).then((resp) => {
+                expect(resp.status).to.eq(404)
+            });
+        });
+        cy.get<LoginTestData>('@login').then((data) => {
+            LoginPage.errorMessageElement.should('have.text',
+                data.checkoutTwoLinkError);
+        });
+    });
+
+    it('Successfully displayed the error after entering the "https://www.saucedemo.com/checkout-complete.html" in the url field', () => {
+        cy.get<PageLinkTestData>('@pageLink').then((link) => {
+            cy.visit(link.checkoutComplete, { failOnStatusCode: false });
+            cy.request({
+                url: link.checkoutComplete,
+                failOnStatusCode: false,
+            }).then((resp) => {
+                expect(resp.status).to.eq(404)
+            });
+        });
+        cy.get<LoginTestData>('@login').then((data) => {
+            LoginPage.errorMessageElement.should('have.text',
+                data.checkoutCompleteError);
+        });
+    });
+
+
+});
+
+
+
 
