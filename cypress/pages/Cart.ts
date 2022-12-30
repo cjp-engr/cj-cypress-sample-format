@@ -1,6 +1,6 @@
 class Cart {
     private shoppingCartButton: string = ".shopping_cart_link";
-    private shoppingCartBadge: string = ".shopping_cart_link > .shopping_cart_badge";
+    private shoppingCartBadge: string = ".shopping_cart_link .shopping_cart_badge";
     private burgerMenuButton: string = "#react-burger-menu-btn";
     private allCartQuantityText: string = ".cart_quantity";
     private allRemoveButton: string = "button.cart_button";

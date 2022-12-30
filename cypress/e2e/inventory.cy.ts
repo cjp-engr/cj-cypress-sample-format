@@ -20,7 +20,7 @@ describe('Add to cart and remove products scenario', () => {
         cy.clearLocalStorage();
     });
 
-    it('Successfully changed button text from "ADD TO CART" to "REMOVE" after clicking the "ADD TO CART" button', () => {
+    it('Successfully changed button text from "ADD TO CART" to "REMOVE" after clicking the "ADD TO CART" button', function () {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.backpackRemoveButtonElement.should((buttonText) => {
             expect(buttonText).to.contain('Remove');
@@ -28,7 +28,7 @@ describe('Add to cart and remove products scenario', () => {
 
     });
 
-    it('Successfully changed button text from "REMOVE" to "ADD TO CART" after clicking the "REMOVE" button', () => {
+    it('Successfully changed button text from "REMOVE" to "ADD TO CART" after clicking the "REMOVE" button', function () {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.backpackRemoveButtonElement.contains('Remove').click();
         InventoryPage.backpackAddToCartButtonElement.should((buttonText) => {
@@ -36,14 +36,14 @@ describe('Add to cart and remove products scenario', () => {
         });
     });
 
-    it('Successfully displayed the shopping cart badge after clicking the "ADD TO CART"', () => {
+    it('Successfully displayed the shopping cart badge after clicking the "ADD TO CART"', function () {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartBadgeElement.should((content) => {
             expect(content).to.contain('1');
         });
     });
 
-    it('Successfully removed the shopping cart badge after removing all the products from cart', () => {
+    it('Successfully removed the shopping cart badge after removing all the products from cart', function () {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartBadgeElement.contains('1');
         InventoryPage.backpackRemoveButtonElement.contains('Remove').click();
@@ -53,7 +53,7 @@ describe('Add to cart and remove products scenario', () => {
 
     });
 
-    it('Successfully clicked all the "Add to cart" button and displayed the expected number of shopping cart badge', () => {
+    it('Successfully clicked all the "Add to cart" button and displayed the expected number of shopping cart badge', function () {
         InventoryPage.allAddToCardButtonElement
             .each(($el, index, list) => {
                 if ($el.text() === 'Add to cart') {
@@ -66,7 +66,7 @@ describe('Add to cart and remove products scenario', () => {
 
     });
 
-    it('Successfully clicked all the "Remove" button and displayed the expected number of shopping cart badge', () => {
+    it('Successfully clicked all the "Remove" button and displayed the expected number of shopping cart badge', function () {
         InventoryPage.allAddToCardButtonElement
             .each(($el, index, list) => {
                 if ($el.text() === 'Add to cart') {
@@ -103,7 +103,7 @@ describe('Successfully sorted the products according to names in ascending or de
         cy.clearLocalStorage();
     });
 
-    it('Successfully sorted the products from a to z after selecting the "Name (A TO Z)"', () => {
+    it('Successfully sorted the products from a to z after selecting the "Name (A TO Z)"', function () {
         let optionsArray = [];
         InventoryPage.sortButtonElement.select(InventoryPage.sortNameAToZText);
         InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
@@ -118,7 +118,7 @@ describe('Successfully sorted the products according to names in ascending or de
 
     });
 
-    it('Successfully sorted the products from z to a after selecting the "Name (Z TO A)"', () => {
+    it('Successfully sorted the products from z to a after selecting the "Name (Z TO A)"', function () {
         let optionsArray = [];
         InventoryPage.sortButtonElement.select(InventoryPage.sortNameZToAText);
         InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
@@ -152,7 +152,7 @@ describe('Successfully sorted the products from low to high price after selectin
         cy.clearLocalStorage();
     });
 
-    it('Check if the price is sorted from low to high accordingly', () => {
+    it('Check if the price is sorted from low to high accordingly', function () {
         let optionsArray = [];
         InventoryPage.sortButtonElement.select(InventoryPage.sortPriceLowToHighText);
         InventoryPage.allProductPricesTextElement.each(($el, index, list) => {
@@ -168,7 +168,7 @@ describe('Successfully sorted the products from low to high price after selectin
 
     });
 
-    it('Check if the names are sorted accordingly', () => {
+    it('Check if the names are sorted accordingly', function () {
         let optionsArray = [];
         InventoryPage.sortButtonElement.select(InventoryPage.sortPriceLowToHighText);
         InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
@@ -201,7 +201,7 @@ describe('Successfully sorted the products from high to low price after selectin
         cy.clearLocalStorage();
     });
 
-    it('Check if the price is sorted from high to low accordingly', () => {
+    it('Check if the price is sorted from high to low accordingly', function () {
         let optionsArray = [];
         InventoryPage.sortButtonElement.select(InventoryPage.sortPriceHighToLowText);
         InventoryPage.allProductPricesTextElement.each(($el, index, list) => {
@@ -218,7 +218,7 @@ describe('Successfully sorted the products from high to low price after selectin
 
     });
 
-    it('Check if the names are sorted accordingly', () => {
+    it('Check if the names are sorted accordingly', function () {
         let optionsArray = [];
         InventoryPage.sortButtonElement.select(InventoryPage.sortPriceHighToLowText);
         InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
@@ -251,7 +251,7 @@ describe('Broken image assertion', () => {
         cy.clearLocalStorage();
     });
 
-    it('Check if the image is not broken', () => {
+    it('Check if the image is not broken', function () {
         InventoryPage.backpackImageElement.should('be.visible')
             .and(($img) => {
                 img = $img[0] as unknown as HTMLImageElement;

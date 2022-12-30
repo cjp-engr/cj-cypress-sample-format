@@ -19,7 +19,7 @@ describe('Visit cart page scenario', () => {
         cy.clearLocalStorage();
     });
 
-    it('Successfully routed to Cart page after clicking the cart button', () => {
+    it('Successfully routed to Cart page after clicking the cart button', function () {
         InventoryPage.shoppingCartButtonElement.click();
         cy.url().should((url) => {
             expect(url).to.contain('https://www.saucedemo.com/cart.html');
@@ -46,7 +46,7 @@ describe('Successfully added or remove product/s to/from cart scenario', () => {
         cy.clearLocalStorage();
     });
 
-    it('Successfully added the "Sauce Labs Backpack" item to cart page', () => {
+    it('Successfully added the "Sauce Labs Backpack" item to cart page', function () {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartButtonElement.click();
         cy.get<CartTestData>('@cart').then((data) => {
@@ -69,7 +69,7 @@ describe('Successfully added or remove product/s to/from cart scenario', () => {
 
     });
 
-    it('Successfully removed the "Sauce Labs Backpack" item to cart page', () => {
+    it('Successfully removed the "Sauce Labs Backpack" item to cart page', function () {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartButtonElement.click();
         CartPage.allRemoveButtonElement
@@ -83,7 +83,7 @@ describe('Successfully added or remove product/s to/from cart scenario', () => {
         });
     });
 
-    it('Successfully added the "Sauce Labs Bolt T-Shirt" and "Sauce Labs Onesie" items to cart page', () => {
+    it('Successfully added the "Sauce Labs Bolt T-Shirt" and "Sauce Labs Onesie" items to cart page', function () {
         cy.get<InventoryTestData>('@inventory').then((data) => {
             cy.log(data.sortedProductNamesAToZ[2]);
             InventoryPage.allProductNamesTextElement
@@ -112,7 +112,7 @@ describe('Successfully added or remove product/s to/from cart scenario', () => {
 
     });
 
-    it('Retain the items added to cart after clicking the "Continue Shopping" and returning to Cart page', () => {
+    it('Retain the items added to cart after clicking the "Continue Shopping" and returning to Cart page', function () {
         cy.get<InventoryTestData>('@inventory').then((data) => {
             cy.log(data.sortedProductNamesAToZ[2]);
             InventoryPage.allProductNamesTextElement

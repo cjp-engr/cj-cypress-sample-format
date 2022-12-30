@@ -21,7 +21,7 @@ describe('Visit checkout step one page scenario', () => {
         cy.clearLocalStorage();
     });
 
-    it('Successfully routed to Checkout step one page after clicking the cart button', () => {
+    it('Successfully routed to Checkout step one page after clicking the cart button', function () {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartButtonElement.click();
         CartPage.checkoutButtonElement.contains('Checkout').click();
@@ -33,7 +33,7 @@ describe('Visit checkout step one page scenario', () => {
     });
 
     //! error will occur here
-    it('Failed to route in Checkout step one page because the cart is empty', () => {
+    it('Failed to route in Checkout step one page because the cart is empty', function () {
         InventoryPage.backpackAddToCartButtonElement.contains('Add to cart').click();
         InventoryPage.shoppingCartButtonElement.click();
         CartPage.allRemoveButtonElement.each(($el, index, list) => {
@@ -74,7 +74,7 @@ describe('Checkout form scenarios', () => {
         cy.clearLocalStorage();
     });
 
-    it('Successfully routed to Checkout step two page after clicking the "Continue" button', () => {
+    it('Successfully routed to Checkout step two page after clicking the "Continue" button', function () {
         cy.get<CheckoutStepOneData>('@checkoutOne').then((data) => {
             CheckoutStepOnePage.firstNameTextFieldElement.type(data.firstName);
             CheckoutStepOnePage.lastNameTextFieldElement.type(data.lastName);
@@ -88,7 +88,7 @@ describe('Checkout form scenarios', () => {
 
     });
 
-    it('Error displayed because all the text fields are empty', () => {
+    it('Error displayed because all the text fields are empty', function () {
         CheckoutStepOnePage.continueButtonElement.contains('Continue').click();
         cy.get<CheckoutStepOneData>('@checkoutOne').then((data) => {
             CheckoutStepOnePage.errorMessageElement.should('have.text',
@@ -98,7 +98,7 @@ describe('Checkout form scenarios', () => {
 
     });
 
-    it('Error displayed because the first name text field is empty', () => {
+    it('Error displayed because the first name text field is empty', function () {
         cy.get<CheckoutStepOneData>('@checkoutOne').then((data) => {
             CheckoutStepOnePage.lastNameTextFieldElement.type(data.lastName);
             CheckoutStepOnePage.postalCodeTextFieldElement.type(data.postalCode);
@@ -109,7 +109,7 @@ describe('Checkout form scenarios', () => {
 
     });
 
-    it('Error displayed because the last name text field is empty', () => {
+    it('Error displayed because the last name text field is empty', function () {
         cy.get<CheckoutStepOneData>('@checkoutOne').then((data) => {
             CheckoutStepOnePage.firstNameTextFieldElement.type(data.firstName);
             CheckoutStepOnePage.postalCodeTextFieldElement.type(data.postalCode);
@@ -120,7 +120,7 @@ describe('Checkout form scenarios', () => {
 
     });
 
-    it('Error displayed because the zip/postal code text field is empty', () => {
+    it('Error displayed because the zip/postal code text field is empty', function () {
         cy.get<CheckoutStepOneData>('@checkoutOne').then((data) => {
             CheckoutStepOnePage.firstNameTextFieldElement.type(data.firstName);
             CheckoutStepOnePage.lastNameTextFieldElement.type(data.lastName);
@@ -148,7 +148,7 @@ describe('Shopping cart scenarios', () => {
         cy.clearLocalStorage();
     });
 
-    it('The shopping cart badge displayed the number of products correctly', () => {
+    it('The shopping cart badge displayed the number of products correctly', function () {
         InventoryPage.allAddToCardButtonElement
             .each(($el, index, list) => {
                 if ($el.text() === 'Add to cart') {

@@ -41,7 +41,7 @@ describe('Routed to checkout complete page scenario', () => {
         cy.clearLocalStorage();
     });
 
-    it('Successfully routed to Checkout complete page after clicking the "Finish" button', () => {
+    it('Successfully routed to Checkout complete page after clicking the "Finish" button', function () {
         cy.get<CheckoutCompleteData>('@checkoutComplete').then((data) => {
             CheckoutCompletePage.titleElement.should((title) => {
                 expect(title).to.contain(data.title);
@@ -50,7 +50,7 @@ describe('Routed to checkout complete page scenario', () => {
 
     });
 
-    it('Successfully displayed the "THANK YOU FOR YOUR ORDER" after clicking the "Finish" button', () => {
+    it('Successfully displayed the "THANK YOU FOR YOUR ORDER" after clicking the "Finish" button', function () {
         cy.get<CheckoutCompleteData>('@checkoutComplete').then((data) => {
             CheckoutCompletePage.headerTextElement.should((header) => {
                 expect(header).to.contain(data.headerText);
@@ -58,7 +58,7 @@ describe('Routed to checkout complete page scenario', () => {
         });
     });
 
-    it('Successfully displayed the message to the customer after clicking the "Finish" button', () => {
+    it('Successfully displayed the message to the customer after clicking the "Finish" button', function () {
         cy.get<CheckoutCompleteData>('@checkoutComplete').then((data) => {
             CheckoutCompletePage.bodyTextElement.should((body) => {
                 expect(body).to.contain(data.bodyText);
@@ -66,7 +66,7 @@ describe('Routed to checkout complete page scenario', () => {
         });
     });
 
-    it('Successfully displayed the image - not broken', () => {
+    it('Successfully displayed the image - not broken', function () {
         CheckoutCompletePage.imageElement.should('be.visible')
             .and(($img) => {
                 img = $img[0] as unknown as HTMLImageElement;

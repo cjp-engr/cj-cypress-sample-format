@@ -8,11 +8,11 @@ describe('Login Page', () => {
         cy.visitSauceLabs();
     });
 
-    it('Successfully displayed the image - not broken image', () => {
+    it('Successfully displayed the image - not broken image', function () {
         LoginPage.imageElement.should('be.visible');
     });
 
-    it('Success Login Scenario', () => {
+    it('Success Login Scenario', function () {
         cy.get<LoginTestData>('@login').then((data) => {
             LoginPage.usernameTextFieldElement.type(data.validUserName);
             LoginPage.passwordTextFieldElement.type(data.validPassword);
@@ -25,7 +25,7 @@ describe('Login Page', () => {
         });
     });
 
-    it('Failed Login Scenario due to incorrect credentials', () => {
+    it('Failed Login Scenario due to incorrect credentials', function () {
         cy.get<LoginTestData>('@login').then((data) => {
             LoginPage.usernameTextFieldElement.type(data.invalidUserName);
             LoginPage.passwordTextFieldElement.type(data.invalidPassword);
@@ -35,7 +35,7 @@ describe('Login Page', () => {
         });
     });
 
-    it('Failed Login Scenario due to empty username and password', () => {
+    it('Failed Login Scenario due to empty username and password', function () {
 
         cy.get<LoginTestData>('@login').then((data) => {
             LoginPage.loginButtonElement.click();
@@ -45,7 +45,7 @@ describe('Login Page', () => {
 
     });
 
-    it('Failed Login Scenario due to valid username but empty password', () => {
+    it('Failed Login Scenario due to valid username but empty password', function () {
         cy.get<LoginTestData>('@login').then((data) => {
             LoginPage.usernameTextFieldElement.type(data.validUserName);
             LoginPage.loginButtonElement.click();
@@ -54,7 +54,7 @@ describe('Login Page', () => {
         });
     });
 
-    it('Failed Login Scenario due to empty username but password is not', () => {
+    it('Failed Login Scenario due to empty username but password is not', function () {
         cy.get<LoginTestData>('@login').then((data) => {
             LoginPage.usernameTextFieldElement.type(data.validUserName);
             LoginPage.loginButtonElement.click();
@@ -63,7 +63,7 @@ describe('Login Page', () => {
         });
     });
 
-    it('Failed Login Scenario because the user is locked out', () => {
+    it('Failed Login Scenario because the user is locked out', function () {
         cy.get<LoginTestData>('@login').then((data) => {
             LoginPage.usernameTextFieldElement.type(data.lockedOutUserName);
             LoginPage.passwordTextFieldElement.type(data.validPassword);
@@ -73,7 +73,7 @@ describe('Login Page', () => {
         });
     });
 
-    it('Success & Failed Login Scenario - Handling array of objects', () => {
+    it('Success & Failed Login Scenario - Handling array of objects', function () {
         cy.fixture<{ users: UserList[] }>("login.json")
             .its("users")
             .then((users) => {
@@ -103,7 +103,7 @@ describe('Login Page', () => {
 
     });
 
-    it('Success Logout Scenario', () => {
+    it('Success Logout Scenario', function () {
         cy.get<LoginTestData>('@login').then((user) => {
             LoginPage.usernameTextFieldElement.type(user.validUserName);
             LoginPage.passwordTextFieldElement.type(user.validPassword);
@@ -117,7 +117,7 @@ describe('Login Page', () => {
         });
     });
 
-    it('Viewport iphone-6', () => {
+    it('Viewport iphone-6', function () {
         cy.viewport('iphone-6');
         LoginPage.imageElement.should('be.visible');
         cy.scrollTo('bottom', { duration: 300 });
@@ -131,7 +131,7 @@ describe('Attempt visiting the pages if the user is not yet logged in scenarios'
         cy.fixture('page_link').as('pageLink');
     })
 
-    it('Successfully displayed the error after entering the "https://www.saucedemo.com/inventory.html" in the url field', () => {
+    it('Successfully displayed the error after entering the "https://www.saucedemo.com/inventory.html" in the url field', function () {
         cy.get<PageLinkTestData>('@pageLink').then((link) => {
             cy.visit(link.inventoryLink, { failOnStatusCode: false });
             cy.request({
@@ -147,7 +147,7 @@ describe('Attempt visiting the pages if the user is not yet logged in scenarios'
         });
     });
 
-    it('Successfully displayed the error after entering the "https://www.saucedemo.com/cart.html" in the url field', () => {
+    it('Successfully displayed the error after entering the "https://www.saucedemo.com/cart.html" in the url field', function () {
         cy.get<PageLinkTestData>('@pageLink').then((link) => {
             cy.visit(link.cartLink, { failOnStatusCode: false });
             cy.request({
@@ -163,7 +163,7 @@ describe('Attempt visiting the pages if the user is not yet logged in scenarios'
         });
     });
 
-    it('Successfully displayed the error after entering the "https://www.saucedemo.com/checkout-step-one.html" in the url field', () => {
+    it('Successfully displayed the error after entering the "https://www.saucedemo.com/checkout-step-one.html" in the url field', function () {
         cy.get<PageLinkTestData>('@pageLink').then((link) => {
             cy.visit(link.checkoutOneLink, { failOnStatusCode: false });
             cy.request({
@@ -179,7 +179,7 @@ describe('Attempt visiting the pages if the user is not yet logged in scenarios'
         });
     });
 
-    it('Successfully displayed the error after entering the "https://www.saucedemo.com/checkout-step-two.html" in the url field', () => {
+    it('Successfully displayed the error after entering the "https://www.saucedemo.com/checkout-step-two.html" in the url field', function () {
         cy.get<PageLinkTestData>('@pageLink').then((link) => {
             cy.visit(link.checkoutTwoLink, { failOnStatusCode: false });
             cy.request({
@@ -195,7 +195,7 @@ describe('Attempt visiting the pages if the user is not yet logged in scenarios'
         });
     });
 
-    it('Successfully displayed the error after entering the "https://www.saucedemo.com/checkout-complete.html" in the url field', () => {
+    it('Successfully displayed the error after entering the "https://www.saucedemo.com/checkout-complete.html" in the url field', function () {
         cy.get<PageLinkTestData>('@pageLink').then((link) => {
             cy.visit(link.checkoutComplete, { failOnStatusCode: false });
             cy.request({
