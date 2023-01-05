@@ -9,11 +9,11 @@ describe('Login Page', () => {
             cy.visitSauceLabs();
         });
 
-        it('Should display the image successfully and not broken', function () {
+        it('The image should display after the page has been loaded', function () {
             LoginPage.imageElement.should('be.visible');
         });
 
-        it('Should login successfully', function () {
+        it('The login attempt should be successful after the user entered a valid username and password', function () {
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.usernameTextFieldElement.type(data.validUserName);
                 LoginPage.passwordTextFieldElement.type(data.validPassword);
@@ -26,7 +26,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('Login should be failed due to incorrect credentials', function () {
+        it('The login attempt should fail after the user entered an invalid username and password', function () {
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.usernameTextFieldElement.type(data.invalidUserName);
                 LoginPage.passwordTextFieldElement.type(data.invalidPassword);
@@ -36,7 +36,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('Login should be failed due to empty username and password', function () {
+        it('The login attempt should fail due to empty username and password fields', function () {
 
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.loginButtonElement.click();
@@ -46,7 +46,7 @@ describe('Login Page', () => {
 
         });
 
-        it('Login should be failed due to valid username but empty password', function () {
+        it('The login attempt should fail after the user entered a valid username but with empty password field', function () {
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.usernameTextFieldElement.type(data.validUserName);
                 LoginPage.loginButtonElement.click();
@@ -55,7 +55,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('Login should be failed due to empty username but password is not', function () {
+        it('The login attempt should fail after the user entered a password but with empty username field', function () {
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.usernameTextFieldElement.type(data.validUserName);
                 LoginPage.loginButtonElement.click();
@@ -64,7 +64,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('Login should be failed due to user is locked out', function () {
+        it('The login attempt should fail due to user being locked out', function () {
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.usernameTextFieldElement.type(data.lockedOutUserName);
                 LoginPage.passwordTextFieldElement.type(data.validPassword);
@@ -104,7 +104,7 @@ describe('Login Page', () => {
 
         });
 
-        it('Should logout successfully', function () {
+        it('The logout attempt should be successful after the user clicked the logout button', function () {
             cy.get<LoginTestData>('@login').then((user) => {
                 LoginPage.usernameTextFieldElement.type(user.validUserName);
                 LoginPage.passwordTextFieldElement.type(user.validPassword);
@@ -132,7 +132,7 @@ describe('Login Page', () => {
             cy.fixture('page_link').as('pageLink');
         })
 
-        it('Should display the error message after entering the "https://www.saucedemo.com/inventory.html" in the url field', function () {
+        it('The error message should display if the user is not yet login and entered the "https://www.saucedemo.com/inventory.html" in the url field', function () {
             cy.get<PageLinkTestData>('@pageLink').then((link) => {
                 cy.visit(link.inventoryLink, { failOnStatusCode: false });
                 cy.request({
@@ -148,7 +148,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('Should display the error message after entering the "https://www.saucedemo.com/cart.html" in the url field', function () {
+        it('The error message should display if the user is not yet login and entered the "https://www.saucedemo.com/cart.html" in the url field', function () {
             cy.get<PageLinkTestData>('@pageLink').then((link) => {
                 cy.visit(link.cartLink, { failOnStatusCode: false });
                 cy.request({
@@ -164,7 +164,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('Should display the error message after entering the "https://www.saucedemo.com/checkout-step-one.html" in the url field', function () {
+        it('The error message should display if the user is not yet login and entered the "https://www.saucedemo.com/checkout-step-one.html" in the url field', function () {
             cy.get<PageLinkTestData>('@pageLink').then((link) => {
                 cy.visit(link.checkoutOneLink, { failOnStatusCode: false });
                 cy.request({
@@ -180,7 +180,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('Should display the error message after entering the "https://www.saucedemo.com/checkout-step-two.html" in the url field', function () {
+        it('The error message should display if the user is not yet login and entered the "https://www.saucedemo.com/checkout-step-two.html" in the url field', function () {
             cy.get<PageLinkTestData>('@pageLink').then((link) => {
                 cy.visit(link.checkoutTwoLink, { failOnStatusCode: false });
                 cy.request({
@@ -196,7 +196,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('Should display the error message after entering the "https://www.saucedemo.com/checkout-complete.html" in the url field', function () {
+        it('The error message should display if the user is not yet login and entered the "https://www.saucedemo.com/checkout-complete.html" in the url field', function () {
             cy.get<PageLinkTestData>('@pageLink').then((link) => {
                 cy.visit(link.checkoutComplete, { failOnStatusCode: false });
                 cy.request({
