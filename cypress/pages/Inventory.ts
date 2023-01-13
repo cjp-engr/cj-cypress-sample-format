@@ -2,10 +2,14 @@ class Inventory {
 
     //---Start - Sorting of products---//
     private sort: string = "select.product_sort_container";
-    private sortNameAToZ: string = "Name (A to Z)";
-    private sortNameZToA: string = "Name (Z to A)";
-    private sortPriceLowToHigh: string = "Price (low to high)";
-    private sortPriceHighToLow: string = "Price (high to low)";
+    // private sortNameAToZ: string = "Name (A to Z)";
+    // private sortNameZToA: string = "Name (Z to A)";
+    // private sortPriceLowToHigh: string = "Price (low to high)";
+    // private sortPriceHighToLow: string = "Price (high to low)";
+    private sortNameAToZ: string = "az";
+    private sortNameZToA: string = "za";
+    private sortPriceLowToHigh: string = "lohi";
+    private sortPriceHighToLow: string = "hilo";
     //---End - Sorting of products---//
 
     //---Start - Sauce Labs Backpack---//
