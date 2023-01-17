@@ -105,7 +105,7 @@ describe('Inventory Page', () => {
         });
 
         it('Should successfully sort the products from a to z after selecting the "Name (A TO Z)"', function () {
-            // let optionsArray = [];
+
             InventoryPage.sortButtonElement.select(InventoryPage.sortNameAToZText);
             InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
                 cy.get<InventoryTestData>('@inventory').then((data) => {
@@ -118,7 +118,7 @@ describe('Inventory Page', () => {
         });
 
         it('Shouldd successfully sort the products from z to a after selecting the "Name (Z TO A)"', function () {
-            // let optionsArray = [];
+
             InventoryPage.sortButtonElement.select(InventoryPage.sortNameZToAText);
             InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
                 cy.get<InventoryTestData>('@inventory').then((data) => {
