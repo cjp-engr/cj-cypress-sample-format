@@ -105,14 +105,12 @@ describe('Inventory Page', () => {
         });
 
         it('Should successfully sort the products from a to z after selecting the "Name (A TO Z)"', function () {
-            let optionsArray = [];
+            // let optionsArray = [];
             InventoryPage.sortButtonElement.select(InventoryPage.sortNameAToZText);
             InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
-                optionsArray[index] = $el.text();
-            }).then(() => {
                 cy.get<InventoryTestData>('@inventory').then((data) => {
-                    expect(optionsArray).to.deep
-                        .equal(data.sortedProductNamesAToZ);
+                    expect($el.text()).to.deep
+                        .equal(data.sortedProductNamesAToZ[index]);
 
                 });
             });
@@ -120,14 +118,12 @@ describe('Inventory Page', () => {
         });
 
         it('Shouldd successfully sort the products from z to a after selecting the "Name (Z TO A)"', function () {
-            let optionsArray = [];
+            // let optionsArray = [];
             InventoryPage.sortButtonElement.select(InventoryPage.sortNameZToAText);
             InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
-                optionsArray[index] = $el.text();
-            }).then(() => {
                 cy.get<InventoryTestData>('@inventory').then((data) => {
-                    expect(optionsArray).to.deep
-                        .equal(data.sortedProductNamesZToA);
+                    expect($el.text()).to.deep
+                        .equal(data.sortedProductNamesZToA[index]);
 
                 });
             });
@@ -154,15 +150,11 @@ describe('Inventory Page', () => {
         });
 
         it('Should sort the items according to from low to high price', function () {
-            let optionsArray = [];
             InventoryPage.sortButtonElement.select(InventoryPage.sortPriceLowToHighText);
             InventoryPage.allProductPricesTextElement.each(($el, index, list) => {
-                optionsArray[index] = $el.text()
-                cy.log(optionsArray[index]);
-            }).then(() => {
                 cy.get<InventoryTestData>('@inventory').then((data) => {
-                    expect(optionsArray).to.deep
-                        .equal(data.sortedProductPricesLowToHigh);
+                    expect($el.text()).to.deep
+                        .equal(data.sortedProductPricesLowToHigh[index]);
 
                 });
             });
@@ -170,15 +162,12 @@ describe('Inventory Page', () => {
         });
 
         it('Should sort the names according to from low to high price', function () {
-            let optionsArray = [];
+
             InventoryPage.sortButtonElement.select(InventoryPage.sortPriceLowToHighText);
             InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
-                optionsArray[index] = $el.text()
-                cy.log(optionsArray[index]);
-            }).then(() => {
                 cy.get<InventoryTestData>('@inventory').then((data) => {
-                    expect(optionsArray).to.deep
-                        .equal(data.namesIfPricesSortedLowToHigh);
+                    expect($el.text()).to.deep
+                        .equal(data.namesIfPricesSortedLowToHigh[index]);
 
                 });
             });
@@ -203,15 +192,11 @@ describe('Inventory Page', () => {
         });
 
         it('Should sort the items according to from high to low price', function () {
-            let optionsArray = [];
             InventoryPage.sortButtonElement.select(InventoryPage.sortPriceHighToLowText);
             InventoryPage.allProductPricesTextElement.each(($el, index, list) => {
-                optionsArray[index] = $el.text()
-                cy.log(optionsArray[index]);
-            }).then(() => {
                 cy.get<InventoryTestData>('@inventory').then((data) => {
-                    expect(optionsArray).to.deep
-                        .equal(data.sortedProductPricesHighToLow);
+                    expect($el.text()).to.deep
+                        .equal(data.sortedProductPricesHighToLow[index]);
 
                 });
 
@@ -220,15 +205,11 @@ describe('Inventory Page', () => {
         });
 
         it('Should sort the names according to from high to low price', function () {
-            let optionsArray = [];
             InventoryPage.sortButtonElement.select(InventoryPage.sortPriceHighToLowText);
             InventoryPage.allProductNamesTextElement.each(($el, index, list) => {
-                optionsArray[index] = $el.text()
-                cy.log(optionsArray[index]);
-            }).then(() => {
                 cy.get<InventoryTestData>('@inventory').then((data) => {
-                    expect(optionsArray).to.deep
-                        .equal(data.namesIfPricesSortedHighToLow);
+                    expect($el.text()).to.deep
+                        .equal(data.namesIfPricesSortedHighToLow[index]);
 
                 });
             });
