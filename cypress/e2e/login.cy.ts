@@ -9,7 +9,7 @@ describe('Login Page', () => {
             cy.visitSauceLabs();
         });
 
-        it('TC-001 - The login attempt should be successful after the user entered a valid username and password', function () {
+        it('TC-001 - The login should be successful after the user entered a valid username and password', function () {
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.usernameTextFieldElement.type(data.validUserName);
                 LoginPage.passwordTextFieldElement.type(data.validPassword);
@@ -22,7 +22,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('TC-002 - The login attempt should fail after the user entered an invalid username and password', function () {
+        it('TC-002 - The login should fail after the user entered an invalid username and password', function () {
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.usernameTextFieldElement.type(data.invalidUserName);
                 LoginPage.passwordTextFieldElement.type(data.invalidPassword);
@@ -32,7 +32,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('TC-003 - The login attempt should fail due to empty username and password fields', function () {
+        it('TC-003 - The login should fail due to empty username and password fields', function () {
 
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.loginButtonElement.click();
@@ -42,7 +42,7 @@ describe('Login Page', () => {
 
         });
 
-        it('TC-004 - The login attempt should fail after the user entered a valid username but with empty password field', function () {
+        it('TC-004 - The login should fail after the user entered a valid username but with empty password field', function () {
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.usernameTextFieldElement.type(data.validUserName);
                 LoginPage.loginButtonElement.click();
@@ -51,7 +51,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('TC-005 - The login attempt should fail after the user entered a password but with empty username field', function () {
+        it('TC-005 - The login should fail after the user entered a password but with empty username field', function () {
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.usernameTextFieldElement.type(data.validUserName);
                 LoginPage.loginButtonElement.click();
@@ -60,7 +60,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('TC-006 - The login attempt should fail due to user being locked out', function () {
+        it('TC-006 - The login should fail due to user being locked out', function () {
             cy.get<LoginTestData>('@login').then((data) => {
                 LoginPage.usernameTextFieldElement.type(data.lockedOutUserName);
                 LoginPage.passwordTextFieldElement.type(data.validPassword);
@@ -70,7 +70,7 @@ describe('Login Page', () => {
             });
         });
 
-        it('TC-007 - The logout attempt should be successful after the user clicked the logout button', function () {
+        it('TC-007 - The logout should be successful after the user clicked the logout button', function () {
             cy.get<LoginTestData>('@login').then((user) => {
                 LoginPage.usernameTextFieldElement.type(user.validUserName);
                 LoginPage.passwordTextFieldElement.type(user.validPassword);
